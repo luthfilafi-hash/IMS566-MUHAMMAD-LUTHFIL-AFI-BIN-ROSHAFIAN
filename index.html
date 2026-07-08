@@ -144,7 +144,7 @@
         .login-btn { width: 100%; padding: 1rem; background-color: var(--accent-color-cyan); color: #000; border: none; border-radius: 30px; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 1rem; text-transform: uppercase; letter-spacing: 1.5px; transition: opacity 0.2s ease, transform 0.2s ease; }
         .login-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(6, 182, 212, 0.4); }
 
-        /* --- NAVBAR STYLES (UPDATED FOR STICKY & MOBILE) --- */
+        /* --- NAVBAR STYLES (UPDATED FOR LOGOUT BUTTON POSITION) --- */
         .navbar { 
             display: flex; 
             justify-content: space-between; 
@@ -161,10 +161,13 @@
         .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: #fff; transition: opacity 0.2s; display: flex; align-items: center; }
         .logo:hover { opacity: 0.8; }
         
+        /* Container for everything on the right side of navbar */
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+        
         /* Mobile Hamburger Menu Button */
         .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; padding: 0.5rem; }
         
-        .nav-items { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-items { display: flex; align-items: center; }
         .nav-links { list-style: none; display: flex; gap: 1.5rem; }
         .nav-links a { color: var(--text-muted); font-weight: 500; font-size: 0.9rem; position: relative; }
         .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
@@ -365,7 +368,12 @@
             .trainers-grid { grid-template-columns: repeat(3, 1fr); } 
         }
         @media (max-width: 768px) {
+            /* Menjadikan butang menu hamburger dan flex gap berfungsi dengan baik */
+            .nav-right { gap: 10px; }
             .mobile-menu-btn { display: block; }
+            
+            /* Mengecilkan saiz butang logout sedikit supaya cantik pada skrin mobile */
+            .logout-btn { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
             
             .nav-items { 
                 display: none; width: 100%; flex-direction: column; position: absolute; top: 100%; left: 0; 
@@ -373,7 +381,7 @@
                 z-index: 999; box-shadow: 0 10px 20px rgba(0,0,0,0.5); 
             }
             .nav-items.active { display: flex; } 
-            .nav-links { display: flex; flex-direction: column; width: 100%; gap: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+            .nav-links { display: flex; flex-direction: column; width: 100%; gap: 1.5rem; margin-bottom: 0; text-align: center; }
             
             .login-layout { flex-direction: column; justify-content: center; text-align: center; gap: 2rem; }
             .login-intro { text-align: center; }
@@ -393,6 +401,7 @@
 </head>
 <body>
 
+    <!-- 1. LOGIN SECTION -->
     <div id="login-section">
         <div class="login-layout">
             <div class="login-intro">
@@ -451,18 +460,21 @@
         </footer>
     </div>
 
+    <!-- 2. ABOUT SECTION -->
     <div id="about-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
-            <button class="mobile-menu-btn">☰</button>
-            <div class="nav-items">
-                <ul class="nav-links">
-                    <li><a href="#" class="active link-to-about">Home</a></li>
-                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="link-to-register">Register Session</a></li>
-                    <li><a href="#" class="link-to-trainers">Trainers</a></li>
-                </ul>
+            <div class="nav-right">
+                <div class="nav-items">
+                    <ul class="nav-links">
+                        <li><a href="#" class="active link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Register Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Trainers</a></li>
+                    </ul>
+                </div>
                 <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+                <button class="mobile-menu-btn">☰</button>
             </div>
         </nav>
         <header class="hero-section about-hero">
@@ -538,18 +550,21 @@
         </footer>
     </div>
 
+    <!-- 3. DASHBOARD SECTION -->
     <div id="dashboard-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
-            <button class="mobile-menu-btn">☰</button>
-            <div class="nav-items">
-                <ul class="nav-links">
-                    <li><a href="#" class="link-to-about">Home</a></li>
-                    <li><a href="#" class="active link-to-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="link-to-register">Register Session</a></li>
-                    <li><a href="#" class="link-to-trainers">Trainers</a></li>
-                </ul>
+            <div class="nav-right">
+                <div class="nav-items">
+                    <ul class="nav-links">
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="active link-to-dashboard">Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Register Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Trainers</a></li>
+                    </ul>
+                </div>
                 <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+                <button class="mobile-menu-btn">☰</button>
             </div>
         </nav>
         <header class="hero-section">
@@ -700,18 +715,21 @@
         </footer>
     </div>
 
+    <!-- 4. REGISTER SECTION -->
     <div id="register-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
-            <button class="mobile-menu-btn">☰</button>
-            <div class="nav-items">
-                <ul class="nav-links">
-                    <li><a href="#" class="link-to-about">Home</a></li>
-                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="active link-to-register">Register Session</a></li>
-                    <li><a href="#" class="link-to-trainers">Trainers</a></li>
-                </ul>
+            <div class="nav-right">
+                <div class="nav-items">
+                    <ul class="nav-links">
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                        <li><a href="#" class="active link-to-register">Register Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Trainers</a></li>
+                    </ul>
+                </div>
                 <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+                <button class="mobile-menu-btn">☰</button>
             </div>
         </nav>
         
@@ -948,18 +966,21 @@
         </footer>
     </div>
 
+    <!-- 5. TRAINERS SECTION -->
     <div id="trainers-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
-            <button class="mobile-menu-btn">☰</button>
-            <div class="nav-items">
-                <ul class="nav-links">
-                    <li><a href="#" class="link-to-about">Home</a></li>
-                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="link-to-register">Register Session</a></li>
-                    <li><a href="#" class="active link-to-trainers">Trainers</a></li>
-                </ul>
+            <div class="nav-right">
+                <div class="nav-items">
+                    <ul class="nav-links">
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Register Session</a></li>
+                        <li><a href="#" class="active link-to-trainers">Trainers</a></li>
+                    </ul>
+                </div>
                 <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+                <button class="mobile-menu-btn">☰</button>
             </div>
         </nav>
         <header class="hero-section trainers-hero">
@@ -1010,18 +1031,21 @@
         </footer>
     </div>
 
+    <!-- 6. TRAINER BIO SECTION -->
     <div id="trainer-bio-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
-            <button class="mobile-menu-btn">☰</button>
-            <div class="nav-items">
-                <ul class="nav-links">
-                    <li><a href="#" class="link-to-about">Home</a></li>
-                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
-                    <li><a href="#" class="link-to-register">Register Session</a></li>
-                    <li><a href="#" class="active link-to-trainers">Trainers</a></li>
-                </ul>
+            <div class="nav-right">
+                <div class="nav-items">
+                    <ul class="nav-links">
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Register Session</a></li>
+                        <li><a href="#" class="active link-to-trainers">Trainers</a></li>
+                    </ul>
+                </div>
                 <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+                <button class="mobile-menu-btn">☰</button>
             </div>
         </nav>
 
@@ -1112,6 +1136,7 @@
         </footer>
     </div>
 
+    <!-- 7. MODALS -->
     <div id="logoutModal" class="modal">
         <div class="modal-content">
             <h3>Confirm Log Out</h3>
@@ -1137,6 +1162,7 @@
         </div>
     </div>
 
+    <!-- 8. JAVASCRIPT -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
@@ -1300,14 +1326,14 @@
             const mobileMenuBtns = document.querySelectorAll('.mobile-menu-btn');
             mobileMenuBtns.forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // Find the nav-items container closest to this button inside the same navbar
+                    // Cari parent terdekat (navbar) untuk pastikan kita buka menu yang betul
                     const nav = e.target.closest('.navbar');
                     const navItems = nav.querySelector('.nav-items');
                     navItems.classList.toggle('active');
                 });
             });
 
-            // Close mobile menu automatically when a link is clicked
+            // Tutup menu secara automatik bila butang nav ditekan
             document.querySelectorAll('.nav-links a, .logout-btn').forEach(link => {
                 link.addEventListener('click', () => {
                     document.querySelectorAll('.nav-items').forEach(nav => nav.classList.remove('active'));
@@ -1564,12 +1590,11 @@
                 }
             };
 
-            // Added click events for mobile touch alongside hover events
             muscleItems.forEach(item => {
                 item.addEventListener('mouseenter', () => activateMuscle(item.getAttribute('data-target')));
                 item.addEventListener('mouseleave', resetMuscles);
                 item.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevents the document click from immediately resetting it
+                    e.stopPropagation(); 
                     activateMuscle(item.getAttribute('data-target'));
                 });
             });
@@ -1578,12 +1603,11 @@
                 group.addEventListener('mouseenter', () => activateMuscle(group.id));
                 group.addEventListener('mouseleave', resetMuscles);
                 group.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevents the document click from immediately resetting it
+                    e.stopPropagation(); 
                     activateMuscle(group.id);
                 });
             });
 
-            // Allow tapping outside the body map to reset the highlights on mobile
             document.addEventListener('click', () => {
                 resetMuscles();
             });
