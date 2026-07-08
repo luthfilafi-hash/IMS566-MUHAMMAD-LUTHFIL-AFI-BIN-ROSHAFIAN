@@ -37,6 +37,7 @@
             color: var(--text-main);
             line-height: 1.6;
             margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
         a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
@@ -76,15 +77,6 @@
         /* --- MAIN LAYOUT BEHAVIOR --- */
         #login-section, #dashboard-section, #register-section, #trainers-section, #about-section, #trainer-bio-section {
             display: none; flex-direction: column; min-height: 100vh;
-        }
-
-        /* --- LOGO STYLES --- */
-        .custom-logo-img {
-            height: 1.2em;
-            width: 1.2em;
-            vertical-align: middle;
-            margin-left: 8px;
-            display: inline-block;
         }
 
         /* --- SPLIT LOGIN SECTION STYLES --- */
@@ -154,7 +146,7 @@
         .login-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(6, 182, 212, 0.4); }
 
         /* --- NAVBAR STYLES --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background-color: #000; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000;}
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background-color: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 1000;}
         .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: #fff; transition: opacity 0.2s; display: flex; align-items: center; }
         .logo:hover { opacity: 0.8; }
         
@@ -357,7 +349,7 @@
         .footer-bottom p { margin-bottom: 0.3rem; }
         .disclaimer { font-style: italic; }
 
-        /* --- MODAL STYLES (Logout & Booked Sessions) --- */
+        /* --- MODAL STYLES --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; }
         .modal-content { background-color: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); padding: 2.5rem 2rem; border-radius: 12px; text-align: center; max-width: 350px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .modal-content h3 { color: #fff; margin-bottom: 1rem; font-size: 1.4rem; font-weight: 600; }
@@ -369,16 +361,7 @@
         .confirm-btn { background: var(--accent-color-red); color: #fff; }
         .confirm-btn:hover { background: #b91c1c; }
 
-        /* Custom styling for the booked sessions modal content */
-        .booked-modal-content {
-            max-width: 650px;
-            max-height: 80vh;
-            overflow-y: auto;
-            text-align: left;
-            padding: 2rem;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent-color-cyan) rgba(255, 255, 255, 0.05);
-        }
+        .booked-modal-content { max-width: 650px; max-height: 80vh; overflow-y: auto; text-align: left; padding: 2rem; scrollbar-width: thin; scrollbar-color: var(--accent-color-cyan) rgba(255, 255, 255, 0.05); }
         .booked-modal-content::-webkit-scrollbar { height: 10px; width: 8px; }
         .booked-modal-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
         .booked-modal-content::-webkit-scrollbar-thumb { background: var(--accent-color-cyan); border-radius: 10px; }
@@ -392,6 +375,9 @@
             .trainers-grid { grid-template-columns: repeat(3, 1fr); } 
         }
         @media (max-width: 768px) {
+            /* Menghalang skrin dari ter-scroll ke tepi / "Senget" */
+            html, body { overflow-x: hidden; width: 100%; }
+
             .nav-right { gap: 8px; } 
             .mobile-menu-btn { display: block; font-size: 1.5rem; padding: 0.2rem;}
             
@@ -419,26 +405,45 @@
             .intro-logo { justify-content: center; font-size: 2.2rem; }
             .login-intro h1 { font-size: 2.5rem; text-align: center; }
             .login-intro p { text-align: center; margin: 0 auto; }
-            .login-form-container { justify-content: center; width: 100%; }
+            .login-form-container { justify-content: center; width: 100%; padding: 0 1rem; }
+            .login-wrapper { padding: 2rem; width: 100%; }
             
             /* Center Form Inputs & Textboxes */
             .form-group { text-align: center; }
-            .form-control { text-align: center; } /* Input teks dan placeholder akan berada tepat di tengah */
+            .form-control { text-align: center; } 
             
             /* Hero Sections */
-            .hero-section { text-align: center; }
-            .hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto; }
+            .hero-section { text-align: center; padding: 3rem 5% 1.5rem; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto; width: 100%; }
 
-            /* Dashboard Cards & Layout */
-            .card-title-row { justify-content: center; text-align: center; }
+            /* Dashboard Cards & Layout (FIXING THE 'SENGET' ISSUE) */
+            .dashboard-container { padding: 0 1rem; width: 100%; box-sizing: border-box; }
+            .dashboard-grid, .charts-grid-bottom, .footer-content, .trainers-grid, .about-features { 
+                display: flex; flex-direction: column; gap: 1.2rem; width: 100%; 
+            }
+            .card { 
+                padding: 1.5rem 1rem; /* Smaller padding to fit mobile screens perfectly */
+                width: 100%; 
+                margin: 0 auto; 
+                box-sizing: border-box; 
+            }
+            .card-title-row { justify-content: center; text-align: center; width: 100%; }
+            
+            .stats-grid { 
+                display: flex; justify-content: center; gap: 1rem; width: 100%; 
+            }
+            .stat-item { 
+                flex: 1; padding: 1.2rem 0.5rem; 
+            }
+
             .day-section { width: 100%; } 
             .day-title { justify-content: center; }
             
             /* Schedule & Dashboard Session Cards */
-            .schedule-card { flex-direction: column; text-align: center; gap: 1rem; }
+            .schedule-card { flex-direction: column; text-align: center; gap: 1rem; padding: 1.2rem; }
             .schedule-info h4, .schedule-info p { text-align: center; }
             
-            .dashboard-session-card { flex-direction: column; text-align: center; gap: 1rem; }
+            .dashboard-session-card { flex-direction: column; text-align: center; gap: 1rem; padding: 1.2rem; }
             .ds-info { text-align: center; width: 100%; }
             .ds-actions { justify-content: center; width: 100%; }
             
@@ -446,13 +451,12 @@
             .bio-segment h2, .bio-segment p, .bio-list { text-align: center; }
             .bio-list li { text-align: center; }
             .contact-item { justify-content: center; }
+            .bio-content { padding: 2rem 1rem; }
 
-            /* Grids Reset to 1 Column */
-            .dashboard-grid, .charts-grid-bottom, .footer-content, .trainers-grid, .about-features { grid-template-columns: 1fr; }
             .main-login-logo { font-size: 2rem; }
             
             /* Footer Styling */
-            .footer-section.address, .footer-section.footer-links, .footer-section.social-links { align-items: center; text-align: center; }
+            .footer-section.address, .footer-section.footer-links, .footer-section.social-links { align-items: center; text-align: center; width: 100%; }
             .address-row { justify-content: center; }
             .footer-section.social-links ul { justify-content: center; }
             .bio-list strong { width: 100%; display: block; margin-bottom: 0.2rem;}
@@ -462,6 +466,7 @@
 </head>
 <body>
 
+    <!-- 1. LOGIN SECTION -->
     <div id="login-section">
         <div class="login-layout">
             <div class="login-intro">
@@ -538,6 +543,7 @@
         </footer>
     </div>
 
+    <!-- 2. ABOUT SECTION -->
     <div id="about-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
@@ -555,7 +561,7 @@
             </div>
         </nav>
         <header class="hero-section about-hero">
-            <div class="hero-content" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="hero-content">
                 <h1>Welcome to Paradis Island Gym</h1>
                 <p>Forge your body, conquer your limits.</p>
                 <img src="https://images.unsplash.com/photo-1689877020200-403d8542d95d?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW1wdHklMjBneW18ZW58MHx8MHx8fDA%3D" alt="Paradis Island Gym Equipment" style="max-width: 550px; width: 100%; min-height: 300px; margin-top: 2.5rem; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); background-color: #333; object-fit: cover;">
@@ -645,6 +651,7 @@
         </footer>
     </div>
 
+    <!-- 3. DASHBOARD SECTION -->
     <div id="dashboard-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
@@ -822,6 +829,7 @@
         </footer>
     </div>
 
+    <!-- 4. REGISTER SECTION -->
     <div id="register-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
@@ -1084,6 +1092,7 @@
         </footer>
     </div>
 
+    <!-- 5. TRAINERS SECTION -->
     <div id="trainers-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
@@ -1160,6 +1169,7 @@
         </footer>
     </div>
 
+    <!-- 6. TRAINER BIO SECTION -->
     <div id="trainer-bio-section">
         <nav class="navbar">
             <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
@@ -1276,6 +1286,7 @@
         </footer>
     </div>
 
+    <!-- 7. MODALS -->
     <div id="logoutModal" class="modal">
         <div class="modal-content">
             <h3>Confirm Log Out</h3>
@@ -1301,6 +1312,7 @@
         </div>
     </div>
 
+    <!-- 8. JAVASCRIPT -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
@@ -1690,7 +1702,7 @@
                 }
             };
 
-            // --- Body Map Muscle Hover Logic ---
+            // --- Body Map Muscle Hover/Click Logic ---
             const muscleItems = document.querySelectorAll('.muscle-legend-item');
             const muscleGroups = document.querySelectorAll('.muscle-group-path');
 
