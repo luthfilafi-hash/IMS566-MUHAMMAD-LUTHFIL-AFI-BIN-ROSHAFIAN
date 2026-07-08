@@ -2,7 +2,7 @@
 
 Course Assignment: IMS566 - Web Design and Development[cite: 1]
 Author: Muhammad Luthfil Afi Bin Roshafian[cite: 1]
-Institution: Universiti Teknologi MARA (UiTM) Shah Alam, Selangor[cite: 1]
+Institution: Universiti Teknologi MARA (UiTM) Puncak Perdana, cawangan Selangor[cite: 1]
 
 
 ## Live Links
