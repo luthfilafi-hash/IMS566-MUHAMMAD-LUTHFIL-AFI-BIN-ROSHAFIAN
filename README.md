@@ -1,99 +1,88 @@
-# 🏋️ Paradis Island Gym — Web Application
+# Paradis Island Gym - Web Application
 
-> **Course Assignment:** IMS566 — Web Design and Development[cite: 1]  
-> **Author:** Muhammad Luthfil Afi Bin Roshafian[cite: 1]  
-> **Institution:** Universiti Teknologi MARA (UiTM) Shah Alam, Selangor[cite: 1]  
+Course Assignment: IMS566 - Web Design and Development[cite: 1]
+Author: Muhammad Luthfil Afi Bin Roshafian[cite: 1]
+Institution: Universiti Teknologi MARA (UiTM) Shah Alam, Selangor[cite: 1]
 
----
 
-## 🔗 Live Links
+## Live Links
 
-* **Live Website (GitHub Pages):** [https://luthfilafi-hash.github.io/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN/](https://luthfilafi-hash.github.io/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN/)
-* **GitHub Repository:** [https://github.com/luthfilafi-hash/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN](https://github.com/luthfilafi-hash/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN)
+* Live Website (GitHub Pages): https://luthfilafi-hash.github.io/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN/
+* GitHub Repository: https://github.com/luthfilafi-hash/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN
 
----
 
-## 📁 Key Project Files
+## Key Project Files
 
-* **`index.html`**: The core source file containing the complete application markup, styles, and JavaScript application logic[cite: 1].
-* **`image_1c1de5.png`**: Project submission requirement and deliverables reference image.
+* index.html: Core source file containing application structure, styling definitions, and JavaScript functionality[cite: 1].
+* image_1c1de5.png: Reference document detailing assignment criteria and deliverables.
 
----
 
-## 📌 Project Overview & Description
+## Project Overview
 
-**Paradis Island Gym** is a dynamic, modern single-page web application (SPA) designed for gym members in Shah Alam, Selangor to manage their workout schedules, track fitness statistics, and explore trainer profiles[cite: 1]. 
+Paradis Island Gym is a single-page web application (SPA) developed for gym members in Shah Alam, Selangor to manage class schedules, view gym analytics, and browse trainer credentials[cite: 1].
 
-Built with a sleek dark aesthetic and glassmorphic UI, the application provides a central portal for athletes looking to book weekly practice sessions, view muscle focus maps, and monitor their attendance in real time[cite: 1].
+The application uses a dark glassmorphism user interface, providing a central hub for members to reserve weekly practice slots, track workout attendance, and inspect targeted muscle groups using an interactive anatomical diagram[cite: 1].
 
----
 
-## 🔐 Login System & Authentication Details
+## Authentication and Access Control
 
-### Demo Credentials
-To evaluate and test the application's client-side authentication, use the hardcoded credentials built into `index.html`[cite: 1]:
+### Testing Credentials
+To test the authentication functionality, use the credentials embedded inside index.html[cite: 1]:
 
-* **Username:** `user`[cite: 1]
-* **Password:** `handsomeL`[cite: 1]
+* Username: user[cite: 1]
+* Password: handsomeL[cite: 1]
 
-### How the Login System Works
+### Authentication Process
 
-1. **Client-Side Validation:** The form input values on the login page are captured and verified against predefined credentials inside `index.html`[cite: 1].
-2. **Session Persistence:** Upon successful verification, the script writes `gym_isLoggedIn = true` into the browser's `sessionStorage`[cite: 1]. This ensures the user stays logged in while navigating the single-page app or refreshing[cite: 1].
-3. **Automated Redirection & Personalized Greeting:** The app hides the `#login-section` and automatically displays the primary landing view (`#about-section`) while dynamically updating the dashboard greeting to welcome the user[cite: 1].
-4. **Access Control:** All main navigation links (Dashboard, Register Session, Trainers) and the session logout modal are unlocked once logged in[cite: 1].
-5. **Secure Logout:** Triggering the **Logout** button opens a confirmation modal[cite: 1]. Confirming clears `sessionStorage` and safely returns the user back to the login screen[cite: 1].
+1. Input Verification: Form inputs are validated against the stored credentials in index.html[cite: 1].
+2. Session Persistence: Upon verification, the application writes the login state to sessionStorage as gym_isLoggedIn[cite: 1]. This maintains the session across page reloads[cite: 1].
+3. Section Redirection: The interface hides the login form, activates the main landing section, and updates the dashboard user greeting[cite: 1].
+4. Navigation Rights: Authenticated users gain full access to the Dashboard, Session Registration, and Trainer Directory[cite: 1].
+5. Session Termination: Selecting Logout opens a modal confirmation window[cite: 1]. Confirming clears sessionStorage and redirects back to the login screen[cite: 1].
 
----
 
-## 🔥 Key Features Included
+## Core Features
 
-### 1. 🔑 Client-Side Authentication & Session Management
-* Secure login interface using built-in credentials (`user` / `handsomeL`)[cite: 1].
-* Persistent login state maintained across page reloads using browser storage[cite: 1].
-* Interactive logout modal with action confirmation[cite: 1].
+### 1. Authentication and Session State
+* Login system running client-side authentication logic[cite: 1].
+* Session state persistence utilizing browser web storage[cite: 1].
+* Logout confirmation modal to prevent accidental session exit[cite: 1].
 
-### 2. 📊 Interactive Fitness Dashboard
-* **Dynamic Counter:** Real-time calculation of total **Booked** vs. **Attended** workout sessions[cite: 1].
-* **Interactive Muscle Map:** Custom SVG body diagram highlighting targeted muscle groups (Chest, Shoulders, Arms, Back, Core, Legs) with color-coded hover state sync[cite: 1].
-* **Calories Burned Bar Chart:** Weekly energy expenditure graph powered by ApexCharts[cite: 1].
-* **Availability Heatmap:** Displays trainer shift coverage across the week[cite: 1].
-* **Peak Traffic Area Chart:** Visualizes gym capacity curves throughout operating hours[cite: 1].
+### 2. Member Statistics Dashboard
+* Dynamic counters calculating total booked versus completed sessions[cite: 1].
+* Interactive SVG anatomical map highlighting muscle groups (Chest, Shoulders, Arms, Back, Core, Legs) with coordinated legend states[cite: 1].
+* Weekly calories burned bar chart rendered with ApexCharts[cite: 1].
+* Trainer shift availability heatmap[cite: 1].
+* Peak gym traffic area chart displaying peak occupancy hours[cite: 1].
 
-### 3. 📅 Weekly Practice Booking System
-* **Weekly Schedule:** Organized Monday through Sunday featuring distinct class titles, times, and trainers[cite: 1].
-* **Interactive Booking Buttons:** Real-time state updates toggling from "Book" to "Booked"[cite: 1].
-* **Booked Sessions Modal:** 
-  * View active reservations grouped by day[cite: 1].
-  * Mark sessions as **Attended (✓)** to update stats[cite: 1].
-  * Cancel/Remove sessions **(🗑️)** from your list[cite: 1].
-* **Trainer Schedule Filtering:** Filter classes on the registration page to view sessions for a specific trainer selected from their bio page[cite: 1].
+### 3. Weekly Class Reservation System
+* Schedule organized from Monday to Sunday with specified session times and assigned instructors[cite: 1].
+* Instant button state updates transitioning from Book to Booked[cite: 1].
+* Booked sessions manager allowing members to mark attendance or remove registered sessions[cite: 1].
+* Schedule filtering option to view classes for a specific trainer selected from their profile page[cite: 1].
 
-### 4. 🎴 Elite Trainers Directory & Profiles
-* **Trainer Profiles:** Features 5 coaches (Chris Bumstead, Joel Twinem TNF, David Laid, Elijah Mundy, Jacob Oestreicher)[cite: 1].
-* **Comprehensive Bio Pages:** Full modal profiles detailing background stories, specializations, certifications, philosophy, and direct contact details[cite: 1].
+### 4. Trainer Directory and Profiles
+* Directory featuring 5 coaches: Chris Bumstead, Joel Twinem TNF, David Laid, Elijah Mundy, and Jacob Oestreicher[cite: 1].
+* Individual profile pages detailing background, area of specialization, certifications, philosophy, and contact details[cite: 1].
 
----
 
-## 🛠️ Frameworks & Libraries Used
+## Technologies and Libraries Used
 
-* **HTML5:** Structuring the single-page layout within `index.html`[cite: 1].
-* **CSS3:** Built using standard CSS variables, CSS Grid, Flexbox, and glassmorphic backdrop filters[cite: 1].
-* **Vanilla JavaScript (ES6+):** Handling SPA view transitions, event handlers, DOM manipulation, and state storage[cite: 1].
-* **[ApexCharts.js](https://cdn.jsdelivr.net/npm/apexcharts):** Third-party charting library loaded via CDN in `index.html` to render performance analytics[cite: 1].
-* **Google Fonts (`Poppins`):** Applied for modern typography styling[cite: 1].
+* HTML5: Page layout and structural markup in index.html[cite: 1].
+* CSS3: Custom properties, CSS Grid, Flexbox layouts, and backdrop filter styling[cite: 1].
+* Vanilla JavaScript (ES6+): Single-page navigation logic, DOM manipulation, state persistence, and event handling[cite: 1].
+* ApexCharts.js: External charting library imported via CDN in index.html for rendering dashboard charts[cite: 1].
+* Google Fonts: Integration of the Poppins font family[cite: 1].
 
----
 
-## 🧪 Quick Test Guide
+## Quick Testing Guide
 
-1. Open your browser and navigate to the **[Live Website Link](https://luthfilafi-hash.github.io/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN/)**.
-2. On the login screen, enter:
-   * **Username:** `user`[cite: 1]
-   * **Password:** `handsomeL`[cite: 1]
-3. Click **LOG IN**[cite: 1].
-4. Navigate through the top navigation bar to explore the **Home**, **Dashboard**, **Register Session**, and **Trainers** sections[cite: 1].
+1. Open the live website link in your web browser.
+2. Enter the demo credentials on the login page:
+   * Username: user[cite: 1]
+   * Password: handsomeL[cite: 1]
+3. Click LOG IN to access the system[cite: 1].
+4. Use the navigation bar to test dashboard widgets, book classes, and filter trainer schedules[cite: 1].
 
----
 
-*© 2026 Paradis Island Gym. Educational project created for the IMS566 assignment by Muhammad Luthfil Afi Bin Roshafian.*[cite: 1]
+(c) 2026 Paradis Island Gym. Educational assignment created for the IMS566 course by Muhammad Luthfil Afi Bin Roshafian.[cite: 1]
