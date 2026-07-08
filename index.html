@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradis Island Gym</title>
+    <style>
+        /* Import a clean, modern font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        /* Base Variables & Reset */
+        :root {
+            --bg-color: #0c0d0e; 
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --text-main: #f9fafb; 
+            --text-muted: #abb1ba; 
+            --border-color: rgba(255, 255, 255, 0.15); 
+            --accent-color-cyan: #06b6d4; 
+            --accent-color-red: #ef4444; 
+            --accent-color-green: #22c55e;
+            --hero-overlay-color: rgba(0, 0, 0, 0.6); 
+            --font-family: 'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --bio-bg: #f4f1ea;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        input, button, textarea, select { font-family: inherit; }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+
+        /* --- SECTION BACKGROUNDS --- */
+        #login-section {
+            /* Cinematic Fade Vignette Effect */
+            background: 
+                radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 80%, rgba(0,0,0,0.95) 100%),
+                linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.7) 100%),
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+
+        #dashboard-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.95)), 
+                        url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+
+        #register-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1581009137042-c552e485697a?q=80&w=1470&auto=format&fit=crop');
+            background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;
+        }
+
+        #trainers-section, #about-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.95)), 
+                        url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+
+        #trainer-bio-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1470&auto=format&fit=crop') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+
+        /* --- MAIN LAYOUT BEHAVIOR --- */
+        #login-section, #dashboard-section, #register-section, #trainers-section, #about-section, #trainer-bio-section {
+            display: none; flex-direction: column; min-height: 100vh;
+        }
+
+        /* --- LOGO STYLES --- */
+        .custom-logo-img {
+            height: 1.2em;
+            width: 1.2em;
+            vertical-align: middle;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        /* --- SPLIT LOGIN SECTION STYLES --- */
+        .login-layout {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 5%;
+            gap: 4rem;
+        }
+
+        .login-intro {
+            flex: 1;
+            max-width: 650px;
+            text-align: left;
+        }
+
+        .intro-logo {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+
+        .login-intro h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .login-intro p {
+            font-size: 1.2rem;
+            color: #d1d5db;
+            line-height: 1.8;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            max-width: 90%;
+        }
+
+        .login-form-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+        }
+
+        .login-wrapper { background-color: rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 3rem; width: 100%; max-width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); text-align: center; }
+        .login-wrapper h2 { font-size: 1.8rem; margin-bottom: 2rem; letter-spacing: 1px; color: #fff; font-weight: 700; }
+        .form-group { margin-bottom: 1.5rem; text-align: left; }
+        .form-group label { display: none; }
+        .form-control { width: 100%; padding: 1rem 1.2rem; background-color: rgba(0,0,0,0.2); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: var(--text-main); transition: border-color 0.2s ease, background-color 0.2s ease; font-size: 0.95rem; }
+        .form-control::placeholder { color: rgba(255, 255, 255, 0.5); }
+        .form-control:focus { outline: none; border-color: var(--accent-color-cyan); background-color: rgba(0,0,0,0.4); }
+        .login-btn { width: 100%; padding: 1rem; background-color: var(--accent-color-cyan); color: #000; border: none; border-radius: 30px; font-size: 0.95rem; font-weight: 700; cursor: pointer; margin-top: 1rem; text-transform: uppercase; letter-spacing: 1.5px; transition: opacity 0.2s ease, transform 0.2s ease; }
+        .login-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(6, 182, 212, 0.4); }
+
+        /* --- NAVBAR STYLES --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 5%; background-color: #000; border-bottom: 1px solid var(--border-color); }
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; color: #fff; transition: opacity 0.2s; display: flex; align-items: center; }
+        .logo:hover { opacity: 0.8; }
+        .nav-items { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { list-style: none; display: flex; gap: 1.5rem; }
+        .nav-links a { color: var(--text-muted); font-weight: 500; font-size: 0.9rem; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px; background-color: var(--accent-color-cyan); }
+        
+        .logout-btn { background-color: var(--accent-color-red); color: #fff; border: none; padding: 0.5rem 1.2rem; border-radius: 4px; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease; font-size: 0.9rem; }
+        .logout-btn:hover { background-color: #b91c1c; }
+
+        /* --- HERO & DASHBOARD STYLES --- */
+        .hero-section { padding: 4rem 5% 1.5rem; background-color: var(--hero-overlay-color); text-align: left; }
+        .hero-section.trainers-hero, .hero-section.about-hero { text-align: center; padding: 4rem 5% 1.5rem; background-color: transparent; }
+        .hero-content h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .hero-content p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .dashboard-container { flex: 1; max-width: 1400px; margin: 0.5rem auto 4rem; padding: 0 5%; width: 100%; }
+        
+        /* 3 Columns Grid (Top Row) */
+        .dashboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: stretch; } 
+        
+        /* 2 Columns Grid (Bottom Row) */
+        .charts-grid-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; }
+
+        .card { background-color: var(--card-bg); border: 1px solid var(--border-color); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 12px; padding: 2.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.3); transition: border-color 0.3s ease; }
+        .card:hover { border-color: rgba(255, 255, 255, 0.3); }
+        .card-title-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+        .card-title-row h2 { font-size: 1.5rem; font-weight: 600; color: #fff; }
+        .icon { color: var(--text-main); font-size: 0.8rem; opacity: 0.7; }
+
+        .sessions-content { text-align: center; color: var(--text-muted); font-size: 1rem; }
+        .sessions-content a { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+        
+        .zen-wisdom-card, .chart-card { display: flex; flex-direction: column; justify-content: center; }
+        
+        .wisdom-content { text-align: center; margin: auto 0; }
+        .wisdom-quote { font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem; font-style: italic; }
+        .stat-separator { border-top: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 2rem; }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .stat-item { text-align: center; padding: 1.5rem 1rem; border: 1px solid transparent; border-radius: 8px; transition: border-color 0.2s ease; background: rgba(255,255,255,0.03); }
+        .stat-item:hover { border-color: rgba(255, 255, 255, 0.15); background: rgba(255,255,255,0.06); }
+        
+        /* Clickable Stat Values */
+        .stat-value { font-size: 2.5rem; font-weight: 700; line-height: 1; margin-bottom: 0.5rem; color: #fff; display: block; transition: color 0.2s; }
+        .stat-value.clickable:hover { color: var(--accent-color-cyan); cursor: pointer; }
+        .stat-label { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
+
+        /* --- INTERACTIVE BODY MAP STYLES --- */
+        .muscle-map-container { display: flex; align-items: center; justify-content: space-around; min-height: 250px; width: 100%; gap: 1rem; }
+        .svg-body { height: 100%; width: auto; max-width: 140px; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); overflow: visible; }
+        
+        .muscle-group-path { cursor: pointer; transition: all 0.3s ease; }
+        .muscle-group-path path { transition: fill 0.3s ease; }
+        
+        /* Glow effect when active/hovered */
+        .muscle-group-path.active path { filter: drop-shadow(0 0 5px currentcolor) brightness(1.2); }
+
+        .muscle-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 50%; }
+        .muscle-legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer; transition: color 0.2s; padding: 6px; border-radius: 6px; }
+        .muscle-legend-item:hover, .muscle-legend-item.active { color: #fff; background: rgba(255,255,255,0.05); }
+        .muscle-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; box-shadow: 0 0 5px currentcolor; }
+
+
+        /* --- DYNAMIC SESSIONS STYLES (Register Page Modal) --- */
+        #register-sessions-list { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+        .dashboard-session-card { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s ease; }
+        .dashboard-session-card:hover { background: rgba(255, 255, 255, 0.12); }
+        .ds-info h4 { color: #fff; font-size: 1.05rem; margin-bottom: 0.2rem; font-weight: 600; }
+        .ds-info p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.6rem; }
+        
+        .tag-upcoming { font-size: 0.65rem; color: #eab308; border: 1px solid #eab308; padding: 0.2rem 0.6rem; border-radius: 12px; letter-spacing: 1px; font-weight: 600; }
+        .tag-attended { font-size: 0.65rem; color: var(--accent-color-green); border: 1px solid var(--accent-color-green); padding: 0.2rem 0.6rem; border-radius: 12px; letter-spacing: 1px; font-weight: 600; }
+        
+        .ds-actions { display: flex; gap: 0.8rem; }
+        .action-btn { background: rgba(0,0,0,0.3); border: 1px solid; border-radius: 50%; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
+        .btn-tick { border-color: var(--accent-color-cyan); color: var(--accent-color-cyan); }
+        .btn-tick:hover { background: var(--accent-color-cyan); color: #000; }
+        .btn-bin { border-color: var(--accent-color-red); color: var(--accent-color-red); }
+        .btn-bin:hover { background: var(--accent-color-red); color: #fff; }
+
+        /* --- WEEKLY SCHEDULE STYLES --- */
+        .schedule-wrapper { max-width: 1550px; margin: 2rem auto 4rem; padding: 0 3%; width: 100%; position: relative; z-index: 10; }
+        .schedule-header { text-align: center; margin-bottom: 3.5rem; }
+        .schedule-header h1 { font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
+        .schedule-header p { color: var(--text-muted); font-size: 1.1rem; }
+        
+        /* Show Booked Session Pop-up Button */
+        #openBookedModalBtn {
+            background: var(--accent-color-cyan); color: #000; padding: 0.6rem 1.5rem; border-radius: 25px; 
+            font-weight: 700; border: none; cursor: pointer; margin-top: 1.5rem; font-size: 0.95rem;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        #openBookedModalBtn:hover { opacity: 0.85; transform: scale(1.05); }
+        .badge-count { background: #000; color: #fff; padding: 2px 8px; border-radius: 12px; margin-left: 8px; font-size: 0.8rem; }
+
+        /* Flex Container for Schedule: 4 atas, 3 bawah (Center) */
+        #dynamic-schedule { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center;
+            gap: 1.5rem; 
+            padding-bottom: 2rem; 
+        }
+
+        .day-section { 
+            width: calc(25% - 1.125rem);
+            margin-bottom: 1rem; 
+        }
+        .day-title { font-size: 1.3rem; color: #eab308; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .day-title::before { content: ''; display: block; width: 3px; height: 22px; background-color: #fff; border-radius: 2px; }
+        
+        .sessions-row { display: flex; flex-direction: column; gap: 1.2rem; }
+        
+        .schedule-card { background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center; transition: transform 0.2s ease, border-color 0.2s ease; }
+        .schedule-card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-3px); }
+        .schedule-info h4 { color: #fff; font-size: 1.05rem; margin-bottom: 0.4rem; font-weight: 600; }
+        .schedule-info p { color: var(--text-muted); font-size: 0.85rem; }
+        
+        .btn-book { background: #f4f1ea; color: #000; padding: 0.6rem 1.4rem; border-radius: 25px; font-weight: 700; border: none; cursor: pointer; font-size: 0.85rem; transition: 0.2s; }
+        .btn-book:hover { opacity: 0.85; transform: scale(1.05); }
+        .btn-book.booked { background: rgba(255,255,255,0.2); color: #fff; cursor: not-allowed; opacity: 1; transform: scale(1); border: 1px solid rgba(255,255,255,0.1); }
+
+        /* --- ABOUT US STYLES --- */
+        .about-container { max-width: 1200px; margin: 0.5rem auto 4rem; padding: 0 5%; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+        .about-main-card { background-color: var(--card-bg); border: 1px solid var(--border-color); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 12px; padding: 3.5rem 2rem; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .about-main-card h2 { font-size: 2.2rem; color: #fff; margin-bottom: 1.5rem; font-weight: 700; }
+        .about-main-card p { color: var(--text-muted); font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.8; }
+        
+        .about-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1rem; }
+        .feature-card { background-color: var(--card-bg); border: 1px solid var(--border-color); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 12px; padding: 2rem; text-align: center; transition: transform 0.3s ease, border-color 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); border-color: rgba(255, 255, 255, 0.3); }
+        
+        .feature-icon { margin-bottom: 1.5rem; border-radius: 8px; overflow: hidden; }
+        .feature-icon img { width: 100%; height: 180px; object-fit: cover; display: block; border-radius: 8px; transition: transform 0.3s ease; }
+        .feature-card:hover .feature-icon img { transform: scale(1.05); }
+
+        .feature-card h3 { color: #fff; font-size: 1.3rem; margin-bottom: 1rem; font-weight: 600; }
+        .feature-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- TRAINERS GRID & BIO PAGES --- */
+        .trainers-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; padding: 0 5%; max-width: 1400px; margin: 1rem auto 5rem; }
+        .trainer-card { background-color: var(--card-bg); backdrop-filter: blur(10px); border-radius: 16px; overflow: hidden; border: 1px solid var(--border-color); display: flex; flex-direction: column; box-shadow: 0 8px 20px rgba(0,0,0,0.4); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+        .trainer-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); border-color: rgba(255,255,255,0.3); }
+        .trainer-img-box { height: 240px; background-color: #e5e5e5; position: relative; }
+        .trainer-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .img-placeholder-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #888; font-size: 0.9rem; text-align: center; }
+        .trainer-card-body { padding: 1.2rem; text-align: center; display: flex; flex-direction: column; flex: 1; }
+        .trainer-card-body h3 { color: #fff; font-size: 1.1rem; margin-bottom: 0.3rem; font-weight: 600; }
+        .trainer-card-body p { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1.2rem; flex: 1; }
+        .btn-bio { width: 100%; padding: 0.7rem; background-color: var(--bio-bg); color: #000; border: none; border-radius: 20px; font-weight: 700; cursor: pointer; transition: opacity 0.2s ease; font-size: 0.9rem; }
+        .trainer-card:hover .btn-bio { background-color: #fff; } 
+        
+        /* UPDATED: Bio Page Styling for Dark Theme */
+        .bio-page-wrapper { background-color: transparent; color: var(--text-main); flex: 1; padding: 4rem 5% 6rem; }
+        .bio-content { max-width: 800px; margin: 0 auto; background: var(--card-bg); padding: 3rem; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color); }
+        .bio-top { text-align: center; margin-bottom: 3rem; }
+        .bio-profile-circle { width: 160px; height: 160px; border-radius: 50%; background-color: #333; margin: 0 auto 1.5rem; overflow: hidden; border: 4px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.3); position: relative; }
+        .bio-profile-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .bio-top h1 { font-size: 2.2rem; color: #fff; margin-bottom: 0.2rem; font-weight: 700; }
+        .bio-top h3 { font-size: 1rem; color: var(--accent-color-cyan); font-weight: 500; }
+        .bio-segment { margin-bottom: 2.5rem; }
+        .bio-segment h2 { font-size: 1.2rem; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.8rem; margin-bottom: 1.2rem; font-weight: 600; }
+        .bio-segment p { line-height: 1.7; color: var(--text-muted); font-size: 1rem; }
+        .bio-list { list-style: none; padding: 0; }
+        .bio-list li { margin-bottom: 1rem; color: var(--text-muted); font-size: 0.95rem; }
+        .bio-list strong { color: #fff; display: inline-block; width: 130px; font-weight: 600; }
+        .contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem; color: var(--text-muted); font-weight: 500; }
+        .back-btn-container { text-align: center; margin-top: 4rem; }
+        .btn-back { background-color: transparent; color: #fff; padding: 0.8rem 2.5rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 30px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease; }
+        .btn-back:hover { background-color: rgba(255,255,255,0.1); }
+
+        /* --- FOOTER STYLES --- */
+        .site-footer, .login-footer { background-color: #000; border-top: 1px solid var(--border-color); padding: 4rem 5% 1rem; margin-top: auto; color: var(--text-muted); }
+        .login-footer { background-color: transparent; padding: 2rem 5% 1rem; }
+        .footer-content { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+        .login-footer .footer-content { margin-bottom: 1.5rem; }
+        .footer-section.address { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+        .address-row { display: flex; align-items: flex-start; gap: 0.8rem; }
+        .address-text { display: flex; flex-direction: column; }
+        .location-link { color: inherit; text-decoration: none; transition: opacity 0.2s ease; }
+        .location-link:hover { opacity: 0.7; }
+        .footer-section.footer-links { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-section.footer-links ul { align-items: center; }
+        .footer-section.social-links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+        .footer-section.social-links ul { justify-content: flex-end; }
+        .footer-section h3 { font-size: 1rem; color: #fff; margin-bottom: 1rem; font-weight: 600; }
+        .footer-links ul, .social-links ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+        .footer-links a { color: var(--text-muted); font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--text-main); }
+        .social-links ul { flex-direction: row; gap: 1.5rem; }
+        .social-icon-img { width: 22px; height: 22px; stroke: var(--text-muted); fill: none; transition: stroke 0.2s ease, transform 0.2s ease; vertical-align: middle; }
+        .social-links a:hover .social-icon-img { stroke: #fff; transform: translateY(-2px); }
+        .icon-placeholder { font-size: 1rem; opacity: 0.8; vertical-align: middle; margin-top: 3px; }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem; color: var(--text-muted); font-size: 0.8rem; opacity: 0.7; }
+        .footer-bottom p { margin-bottom: 0.3rem; }
+        .disclaimer { font-style: italic; }
+
+        /* --- MODAL STYLES (Logout & Booked Sessions) --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background-color: #1a1a1a; border: 1px solid rgba(255,255,255,0.1); padding: 2.5rem 2rem; border-radius: 12px; text-align: center; max-width: 350px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .modal-content h3 { color: #fff; margin-bottom: 1rem; font-size: 1.4rem; font-weight: 600; }
+        .modal-content p { color: var(--text-muted); margin-bottom: 2rem; }
+        .modal-actions { display: flex; gap: 1rem; justify-content: center; }
+        .modal-btn { padding: 0.6rem 1.5rem; border-radius: 6px; cursor: pointer; border: none; font-weight: 600; font-size: 0.95rem; transition: background-color 0.2s ease; }
+        .cancel-btn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+        .cancel-btn:hover { background: rgba(255,255,255,0.1); }
+        .confirm-btn { background: var(--accent-color-red); color: #fff; }
+        .confirm-btn:hover { background: #b91c1c; }
+
+        /* Custom styling for the booked sessions modal content */
+        .booked-modal-content {
+            max-width: 650px;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            padding: 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color-cyan) rgba(255, 255, 255, 0.05);
+        }
+        .booked-modal-content::-webkit-scrollbar { height: 10px; width: 8px; }
+        .booked-modal-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
+        .booked-modal-content::-webkit-scrollbar-thumb { background: var(--accent-color-cyan); border-radius: 10px; }
+
+       /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .day-section { width: calc(50% - 0.75rem); } 
+            .muscle-legend { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 1024px) { 
+            .trainers-grid { grid-template-columns: repeat(3, 1fr); } 
+        }
+        @media (max-width: 768px) {
+            .login-layout { flex-direction: column; justify-content: center; text-align: center; gap: 2rem; }
+            .login-intro { text-align: center; }
+            .intro-logo { justify-content: center; font-size: 2.2rem; }
+            .login-intro h1 { font-size: 2.5rem; }
+            .login-form-container { justify-content: center; width: 100%; }
+            .day-section { width: 100%; } 
+            .dashboard-grid, .charts-grid-bottom, .footer-content, .trainers-grid, .about-features { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .main-login-logo { font-size: 2rem; }
+            .footer-section.address, .footer-section.footer-links, .footer-section.social-links { align-items: center; text-align: center; }
+            .address-row { justify-content: center; }
+            .footer-section.social-links ul { justify-content: center; }
+            .bio-list strong { width: 100%; display: block; margin-bottom: 0.2rem;}
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+
+    <!-- 1. LOGIN SECTION -->
+    <div id="login-section">
+        <div class="login-layout">
+            <div class="login-intro">
+                <div class="intro-logo">PARADIS ISLAND GYM</div>
+                <h1>Forge Your Legacy.</h1>
+                <p>Welcome to the ultimate forging ground. Discipline, raw power, and an elite community await you. Log in to manage your journey.</p>
+            </div>
+            <div class="login-form-container">
+                <div class="login-wrapper">
+                    <h2>Welcome Back</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" class="form-control" placeholder="Username (user)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" class="form-control" placeholder="Password (handsomeL)" required>
+                        </div>
+                        <button type="submit" class="login-btn">LOG IN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="login-footer">
+            <div class="footer-content">
+                <div class="footer-section address">
+                    <div class="logo">PARADIS ISLAND GYM </div>
+                    <div class="address-row">
+                        <span class="icon-placeholder">📍</span>
+                        <div class="address-text">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jalan+Pulau+Indah+Au10%2FA,+Puncak+Perdana,+40150+Shah+Alam,+Selangor" target="_blank" class="location-link">
+                                <p>Paradis Island Gym, 777 MadLane, Kampung Boy District</p>
+                                <p>40150 Shah Alam, Selangor</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Navigation</h3>
+                    <p>Please login to access navigation.</p>
+                </div>
+                <div class="footer-section social-links">
+                    <h3>Follow Our Journey</h3>
+                    <ul>
+                        <li>
+                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;">
+                                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;">
+                                    <path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;">
+                                    <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PARADIS ISLAND GYM.</p>
+                <p class="disclaimer">Disclaimer: This website is an educational project created for the IMS566 assignment by Muhammad Luthfil Afi Bin Roshafian</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 2. ABOUT SECTION -->
+    <div id="about-section">
+        <nav class="navbar">
+            <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
+            <div class="nav-items">
+                <ul class="nav-links">
+                    <li><a href="#" class="active link-to-about">Home</a></li>
+                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                    <li><a href="#" class="link-to-register">Register Session</a></li>
+                    <li><a href="#" class="link-to-trainers">Trainers</a></li>
+                </ul>
+                <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+            </div>
+        </nav>
+        <header class="hero-section about-hero">
+            <div class="hero-content" style="display: flex; flex-direction: column; align-items: center;">
+                <h1>Welcome to Paradis Island Gym</h1>
+                <p>Forge your body, conquer your limits.</p>
+                <img src="https://images.unsplash.com/photo-1689877020200-403d8542d95d?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW1wdHklMjBneW18ZW58MHx8MHx8fDA%3D" alt="Paradis Island Gym Equipment" style="max-width: 550px; width: 100%; min-height: 300px; margin-top: 2.5rem; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); background-color: #333; object-fit: cover;">
+            </div>
+        </header>
+        <main class="about-container">
+            <div class="about-main-card">
+                <h2>About Paradis Island Gym</h2>
+                <p>Located in the heart of Shah Alam, Selangor, Paradis Island Gym is your ultimate sanctuary for achieving peak physical performance. Whether you're a seasoned lifter or just starting your fitness journey, we provide an elite environment built for true transformation, discipline, and building a community of relentless achievers.</p>
+            </div>
+            <div class="about-main-card">
+                <h2>Our Mission</h2>
+                <p>We are not just a gym; we are a forging ground. At Paradis Island Gym, we provide the ultimate environment for individuals who are serious about their transformation. We focus on raw power, discipline, and building a community of relentless achievers dedicated to exceeding their own expectations.</p>
+            </div>
+            <div class="about-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" alt="Heavy Lifting Equipment">
+                    </div>
+                    <h3>Elite Equipment</h3>
+                    <p>Hand-picked gear tailored for heavy lifting, advanced calisthenics, and high-intensity output.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="Expert Trainer">
+                    </div>
+                    <h3>Expert Masters</h3>
+                    <p>Learn from the absolute best. Our trainers aren't just certified; they live and breathe the lifestyle.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop" alt="Intense Workout Focus">
+                    </div>
+                    <h3>No Distractions</h3>
+                    <p>A raw, intensely focused aesthetic designed to keep your head in the game and focused on results.</p>
+                </div>
+            </div>
+        </main>
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-section address">
+                    <div class="logo">PARADIS ISLAND GYM </div>
+                    <div class="address-row">
+                        <span class="icon-placeholder">📍</span>
+                        <div class="address-text">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jalan+Pulau+Indah+Au10%2FA,+Puncak+Perdana,+40150+Shah+Alam,+Selangor" target="_blank" class="location-link">
+                                <p>Paradis Island Gym, 777 MadLane, Kampung Boy District</p>
+                                <p>40150 Shah Alam, Selangor</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Navigation</h3>
+                    <ul>
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">My Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Book a Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Our Trainers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section social-links">
+                    <h3>Follow Our Journey</h3>
+                    <ul>
+                        <li>
+                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PARADIS ISLAND GYM.</p>
+                <p class="disclaimer">Disclaimer: This website is an educational project created for the IMS566 assignment by Muhammad Luthfil Afi Bin Roshafian</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 3. DASHBOARD SECTION -->
+    <div id="dashboard-section">
+        <nav class="navbar">
+            <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
+            <div class="nav-items">
+                <ul class="nav-links">
+                    <li><a href="#" class="link-to-about">Home</a></li>
+                    <li><a href="#" class="active link-to-dashboard">Dashboard</a></li>
+                    <li><a href="#" class="link-to-register">Register Session</a></li>
+                    <li><a href="#" class="link-to-trainers">Trainers</a></li>
+                </ul>
+                <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+            </div>
+        </nav>
+        <header class="hero-section">
+            <div class="hero-content">
+                <h1 id="welcomeText">Hello, User!</h1>
+                <p>Welcome back to your sanctuary. Here is your practice schedule.</p>
+            </div>
+        </header>
+        <main class="dashboard-container">
+            <section class="dashboard-grid">
+                <div class="card zen-wisdom-card">
+                    <div class="wisdom-content">
+                        <p class="wisdom-quote">"DON'T LET THE WEEKEND BECOME YOUR WEAK END."</p>
+                        <div class="stat-separator"></div>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value clickable" id="booked-stats" title="Click to view sessions">0</span>
+                                <span class="stat-label">Booked</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value clickable" id="attended-stats" title="Click to view sessions">0</span>
+                                <span class="stat-label">Attended</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card chart-card">
+                    <div class="card-title-row" style="margin-bottom: 1rem;">
+                        <span class="icon">🔥</span>
+                        <h2 style="font-size: 1.2rem;">Calories Burned</h2>
+                    </div>
+                    <div id="caloriesChart" style="min-height: 200px; display: flex; justify-content: center; align-items: center; width: 100%;"></div>
+                </div>
+                <div class="card chart-card">
+                    <div class="card-title-row" style="margin-bottom: 1rem;">
+                        <span class="icon">💪</span>
+                        <h2 style="font-size: 1.2rem;">Muscle Focus</h2>
+                    </div>
+                    <div class="muscle-map-container">
+                        <div class="svg-body">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 400" style="height: 100%; width: 100%; overflow: visible;">
+                                <g stroke="#0c0d0e" stroke-width="2" stroke-linejoin="round">
+                                    <path d="M85,40 C85,15 115,15 115,40 C115,55 108,65 100,75 C92,65 85,55 85,40 Z" fill="rgba(255,255,255,0.05)"/>
+                                    <path d="M90,60 C95,70 105,70 110,60 L125,75 L75,75 Z" fill="rgba(255,255,255,0.05)"/>
+                                    
+                                    <g id="svg-chest" class="muscle-group-path" data-color="#06b6d4">
+                                        <path d="M75,75 C85,75 98,85 100,85 C100,85 100,105 100,115 C85,110 70,105 60,95 Z" fill="rgba(255,255,255,0.05)" />
+                                        <path d="M125,75 C115,75 102,85 100,85 C100,85 100,105 100,115 C115,110 130,105 140,95 Z" fill="rgba(255,255,255,0.05)" />
+                                    </g>
+                                    <g id="svg-shoulders" class="muscle-group-path" data-color="#ef4444">
+                                        <path d="M75,75 C60,70 45,85 40,105 C50,115 55,105 60,95 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M125,75 C140,70 155,85 160,105 C150,115 145,105 140,95 Z" fill="rgba(255,255,255,0.05)"/>
+                                    </g>
+                                    <g id="svg-arms" class="muscle-group-path" data-color="#f97316">
+                                        <path d="M40,105 C30,130 35,150 25,175 L45,170 C45,145 55,125 55,110 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M160,105 C170,130 165,150 175,175 L155,170 C155,145 145,125 145,110 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M25,175 C15,200 10,230 15,250 L25,250 C25,230 40,200 45,170 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M175,175 C185,200 190,230 185,250 L175,250 C175,230 160,200 155,170 Z" fill="rgba(255,255,255,0.05)"/>
+                                    </g>
+                                    <g id="svg-back" class="muscle-group-path" data-color="#22c55e">
+                                        <path d="M60,95 C55,110 50,140 65,160 L75,125 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M140,95 C145,110 150,140 135,160 L125,125 Z" fill="rgba(255,255,255,0.05)"/>
+                                    </g>
+                                    <g id="svg-core" class="muscle-group-path" data-color="#a855f7">
+                                        <path d="M75,115 C85,110 95,115 100,115 L100,140 L70,135 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M125,115 C115,110 105,115 100,115 L100,140 L130,135 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M70,135 L100,140 L100,175 L75,170 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M130,135 L100,140 L100,175 L125,170 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M75,125 L65,160 C70,175 75,185 85,190 L75,170 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M125,125 L135,160 C130,175 125,185 115,190 L125,170 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M85,190 L100,175 L115,190 L125,210 L100,230 L75,210 Z" fill="rgba(255,255,255,0.05)"/>
+                                    </g>
+                                    <g id="svg-legs" class="muscle-group-path" data-color="#eab308">
+                                        <path d="M75,210 L100,230 L95,290 C80,290 60,260 55,215 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M125,210 L100,230 L105,290 C120,290 140,260 145,215 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M70,295 L95,295 L90,320 L65,320 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M130,295 L105,295 L110,320 L135,320 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M65,325 L90,325 L80,390 L60,390 Z" fill="rgba(255,255,255,0.05)"/>
+                                        <path d="M135,325 L110,325 L120,390 L140,390 Z" fill="rgba(255,255,255,0.05)"/>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="muscle-legend">
+                            <div class="muscle-legend-item" data-target="svg-chest"><div class="muscle-dot" style="background-color: #06b6d4;"></div> Chest</div>
+                            <div class="muscle-legend-item" data-target="svg-shoulders"><div class="muscle-dot" style="background-color: #ef4444;"></div> Shoulders</div>
+                            <div class="muscle-legend-item" data-target="svg-arms"><div class="muscle-dot" style="background-color: #f97316;"></div> Arms</div>
+                            <div class="muscle-legend-item" data-target="svg-back"><div class="muscle-dot" style="background-color: #22c55e;"></div> Back</div>
+                            <div class="muscle-legend-item" data-target="svg-core"><div class="muscle-dot" style="background-color: #a855f7;"></div> Core</div>
+                            <div class="muscle-legend-item" data-target="svg-legs"><div class="muscle-dot" style="background-color: #eab308;"></div> Legs</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="charts-grid-bottom">
+                <div class="card">
+                    <div class="card-title-row" style="margin-bottom: 1rem;">
+                        <span class="icon">📅</span>
+                        <h2 style="font-size: 1.2rem;">Availability Heatmap</h2>
+                    </div>
+                    <div id="heatmapChart" style="min-height: 320px; width: 100%;"></div>
+                </div>
+                <div class="card">
+                    <div class="card-title-row" style="margin-bottom: 1rem;">
+                        <span class="icon">📈</span>
+                        <h2 style="font-size: 1.2rem;">Peak Gym Traffic</h2>
+                    </div>
+                    <div id="peakHoursChart" style="min-height: 320px; width: 100%;"></div>
+                </div>
+            </section>
+        </main>
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-section address">
+                    <div class="logo">PARADIS ISLAND GYM </div>
+                    <div class="address-row">
+                        <span class="icon-placeholder">📍</span>
+                        <div class="address-text">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jalan+Pulau+Indah+Au10%2FA,+Puncak+Perdana,+40150+Shah+Alam,+Selangor" target="_blank" class="location-link">
+                                <p>Paradis Island Gym, 777 MadLane, Kampung Boy District</p>
+                                <p>40150 Shah Alam, Selangor</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Navigation</h3>
+                    <ul>
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">My Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Book a Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Our Trainers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section social-links">
+                    <h3>Follow Our Journey</h3>
+                    <ul>
+                        <li>
+                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PARADIS ISLAND GYM.</p>
+                <p class="disclaimer">Disclaimer: This website is an educational project created for the IMS566 assignment by Muhammad Luthfil Afi Bin Roshafian</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 4. REGISTER SECTION -->
+    <div id="register-section">
+        <nav class="navbar">
+            <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
+            <div class="nav-items">
+                <ul class="nav-links">
+                    <li><a href="#" class="link-to-about">Home</a></li>
+                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                    <li><a href="#" class="active link-to-register">Register Session</a></li>
+                    <li><a href="#" class="link-to-trainers">Trainers</a></li>
+                </ul>
+                <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+            </div>
+        </nav>
+        
+        <div class="schedule-wrapper">
+            <div class="schedule-header">
+                <h1>Weekly Practice Schedule</h1>
+                <p>Choose a session to add to your journey.</p>
+                <button id="openBookedModalBtn">
+                    View Booked Sessions <span id="register-booked-count" class="badge-count">0</span>
+                </button>
+            </div>
+
+            <div id="dynamic-schedule">
+                <div class="day-section">
+                    <div class="day-title">Monday</div>
+                    <div class="sessions-row">
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Sunrise Mobility</h4>
+                                <p>07:00 AM | Elijah Mundy</p>
+                            </div>
+                            <button class="btn-book" data-id="mon-1" data-day="Monday" data-title="Sunrise Mobility" data-time="07:00 AM" data-trainer="Elijah Mundy">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>HIIT Blast</h4>
+                                <p>12:00 PM | Joel Twinem TNF</p>
+                            </div>
+                            <button class="btn-book" data-id="mon-2" data-day="Monday" data-title="HIIT Blast" data-time="12:00 PM" data-trainer="Joel Twinem TNF">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Raw Powerlifting</h4>
+                                <p>06:00 PM | Chris Bumstead</p>
+                            </div>
+                            <button class="btn-book" data-id="mon-3" data-day="Monday" data-title="Raw Powerlifting" data-time="06:00 PM" data-trainer="Chris Bumstead">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-section">
+                    <div class="day-title">Tuesday</div>
+                    <div class="sessions-row">
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Bodyweight Mastery</h4>
+                                <p>08:30 AM | David Laid</p>
+                            </div>
+                            <button class="btn-book" data-id="tue-1" data-day="Tuesday" data-title="Bodyweight Mastery" data-time="08:30 AM" data-trainer="David Laid">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Vinyasa Flow</h4>
+                                <p>01:00 PM | Elijah Mundy</p>
+                            </div>
+                            <button class="btn-book" data-id="tue-2" data-day="Tuesday" data-title="Vinyasa Flow" data-time="01:00 PM" data-trainer="Elijah Mundy">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Speed & Agility</h4>
+                                <p>07:30 PM | Jacob Oestreicher</p>
+                            </div>
+                            <button class="btn-book" data-id="tue-3" data-day="Tuesday" data-title="Speed & Agility" data-time="07:30 PM" data-trainer="Jacob Oestreicher">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-section">
+                    <div class="day-title">Wednesday</div>
+                    <div class="sessions-row">
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Morning Conditioning</h4>
+                                <p>07:30 AM | Jacob Oestreicher</p>
+                            </div>
+                            <button class="btn-book" data-id="wed-1" data-day="Wednesday" data-title="Morning Conditioning" data-time="07:30 AM" data-trainer="Jacob Oestreicher">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Core Calisthenics</h4>
+                                <p>11:00 AM | David Laid</p>
+                            </div>
+                            <button class="btn-book" data-id="wed-2" data-day="Wednesday" data-title="Core Calisthenics" data-time="11:00 AM" data-trainer="David Laid">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Heavy Deadlifts</h4>
+                                <p>05:30 PM | Chris Bumstead</p>
+                            </div>
+                            <button class="btn-book" data-id="wed-3" data-day="Wednesday" data-title="Heavy Deadlifts" data-time="05:30 PM" data-trainer="Chris Bumstead">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-section">
+                    <div class="day-title">Thursday</div>
+                    <div class="sessions-row">
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Active Recovery</h4>
+                                <p>08:00 AM | Elijah Mundy</p>
+                            </div>
+                            <button class="btn-book" data-id="thu-1" data-day="Thursday" data-title="Active Recovery" data-time="08:00 AM" data-trainer="Elijah Mundy">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Explosive Plyos</h4>
+                                <p>01:30 PM | Jacob Oestreicher</p>
+                            </div>
+                            <button class="btn-book" data-id="thu-2" data-day="Thursday" data-title="Explosive Plyos" data-time="01:30 PM" data-trainer="Jacob Oestreicher">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Late Night HIIT</h4>
+                                <p>08:30 PM | Joel Twinem TNF</p>
+                            </div>
+                            <button class="btn-book" data-id="thu-3" data-day="Thursday" data-title="Late Night HIIT" data-time="08:30 PM" data-trainer="Joel Twinem TNF">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-section">
+                    <div class="day-title">Friday</div>
+                    <div class="sessions-row">
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Ring Fundamentals</h4>
+                                <p>06:30 AM | David Laid</p>
+                            </div>
+                            <button class="btn-book" data-id="fri-1" data-day="Friday" data-title="Ring Fundamentals" data-time="06:30 AM" data-trainer="David Laid">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Max Strength</h4>
+                                <p>12:00 PM | Chris Bumstead</p>
+                            </div>
+                            <button class="btn-book" data-id="fri-2" data-day="Friday" data-title="Max Strength" data-time="12:00 PM" data-trainer="Chris Bumstead">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Endurance Burn</h4>
+                                <p>05:00 PM | Joel Twinem TNF</p>
+                            </div>
+                            <button class="btn-book" data-id="fri-3" data-day="Friday" data-title="Endurance Burn" data-time="05:00 PM" data-trainer="Joel Twinem TNF">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-section">
+                    <div class="day-title">Saturday</div>
+                    <div class="sessions-row">
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Squat Mechanics</h4>
+                                <p>09:00 AM | Chris Bumstead</p>
+                            </div>
+                            <button class="btn-book" data-id="sat-1" data-day="Saturday" data-title="Squat Mechanics" data-time="09:00 AM" data-trainer="Chris Bumstead">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Advanced Calisthenics</h4>
+                                <p>11:30 AM | David Laid</p>
+                            </div>
+                            <button class="btn-book" data-id="sat-2" data-day="Saturday" data-title="Advanced Calisthenics" data-time="11:30 AM" data-trainer="David Laid">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Titan Burn</h4>
+                                <p>03:00 PM | Joel Twinem TNF</p>
+                            </div>
+                            <button class="btn-book" data-id="sat-3" data-day="Saturday" data-title="Titan Burn" data-time="03:00 PM" data-trainer="Joel Twinem TNF">Book</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="day-section">
+                    <div class="day-title">Sunday</div>
+                    <div class="sessions-row">
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Deep Stretching</h4>
+                                <p>10:00 AM | Elijah Mundy</p>
+                            </div>
+                            <button class="btn-book" data-id="sun-1" data-day="Sunday" data-title="Deep Stretching" data-time="10:00 AM" data-trainer="Elijah Mundy">Book</button>
+                        </div>
+                        <div class="schedule-card">
+                            <div class="schedule-info">
+                                <h4>Functional Reflexes</h4>
+                                <p>02:00 PM | Jacob Oestreicher</p>
+                            </div>
+                            <button class="btn-book" data-id="sun-2" data-day="Sunday" data-title="Functional Reflexes" data-time="02:00 PM" data-trainer="Jacob Oestreicher">Book</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-section address">
+                    <div class="logo">PARADIS ISLAND GYM </div>
+                    <div class="address-row">
+                        <span class="icon-placeholder">📍</span>
+                        <div class="address-text">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jalan+Pulau+Indah+Au10%2FA,+Puncak+Perdana,+40150+Shah+Alam,+Selangor" target="_blank" class="location-link">
+                                <p>Paradis Island Gym, 777 MadLane, Kampung Boy District</p>
+                                <p>40150 Shah Alam, Selangor</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Navigation</h3>
+                    <ul>
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">My Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Book a Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Our Trainers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section social-links">
+                    <h3>Follow Our Journey</h3>
+                    <ul>
+                        <li>
+                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PARADIS ISLAND GYM.</p>
+                <p class="disclaimer">Disclaimer: This website is an educational project created for the IMS566 assignment by Muhammad Luthfil Afi Bin Roshafian</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 5. TRAINERS SECTION -->
+    <div id="trainers-section">
+        <nav class="navbar">
+            <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
+            <div class="nav-items">
+                <ul class="nav-links">
+                    <li><a href="#" class="link-to-about">Home</a></li>
+                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                    <li><a href="#" class="link-to-register">Register Session</a></li>
+                    <li><a href="#" class="active link-to-trainers">Trainers</a></li>
+                </ul>
+                <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+            </div>
+        </nav>
+        <header class="hero-section trainers-hero">
+            <div class="hero-content">
+                <h1>Our Elite Trainers</h1>
+                <p>Guided by experience, driven by results.</p>
+            </div>
+        </header>
+        
+        <main id="dynamic-trainers-grid" class="trainers-grid"></main>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-section address">
+                    <div class="logo">PARADIS ISLAND GYM </div>
+                    <div class="address-row">
+                        <span class="icon-placeholder">📍</span>
+                        <div class="address-text">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jalan+Pulau+Indah+Au10%2FA,+Puncak+Perdana,+40150+Shah+Alam,+Selangor" target="_blank" class="location-link">
+                                <p>Paradis Island Gym, 777 MadLane, Kampung Boy District</p>
+                                <p>40150 Shah Alam, Selangor</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Navigation</h3>
+                    <ul>
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">My Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Book a Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Our Trainers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section social-links">
+                    <h3>Follow Our Journey</h3>
+                    <ul>
+                        <li>
+                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PARADIS ISLAND GYM.</p>
+                <p class="disclaimer">Disclaimer: This website is an educational project created for the IMS566 assignment by Muhammad Luthfil Afi Bin Roshafian</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 6. TRAINER BIO SECTION -->
+    <div id="trainer-bio-section">
+        <nav class="navbar">
+            <div class="logo link-to-about" style="cursor: pointer;" title="Go to Home">PARADIS ISLAND GYM </div>
+            <div class="nav-items">
+                <ul class="nav-links">
+                    <li><a href="#" class="link-to-about">Home</a></li>
+                    <li><a href="#" class="link-to-dashboard">Dashboard</a></li>
+                    <li><a href="#" class="link-to-register">Register Session</a></li>
+                    <li><a href="#" class="active link-to-trainers">Trainers</a></li>
+                </ul>
+                <button class="logout-btn" onclick="document.getElementById('logoutModal').style.display='flex'">Logout</button>
+            </div>
+        </nav>
+
+        <div class="bio-page-wrapper">
+            <div class="bio-content">
+                <div class="bio-top">
+                    <div class="bio-profile-circle">
+                        <img id="bio-img" src="" alt="Trainer Profile">
+                        <span id="bio-img-placeholder" class="img-placeholder-text">Photo</span>
+                    </div>
+                    <h1 id="bio-name">Trainer Name</h1>
+                    <h3 id="bio-role">Specialist Role</h3>
+                </div>
+
+                <div class="bio-segment">
+                    <h2>About the Trainer</h2>
+                    <p id="bio-about">Biography text goes here.</p>
+                </div>
+
+                <div class="bio-segment">
+                    <h2>Professional Details</h2>
+                    <ul class="bio-list">
+                        <li><strong>Experience:</strong> <span id="bio-experience"></span></li>
+                        <li><strong>Specialization:</strong> <span id="bio-specialization"></span></li>
+                        <li><strong>Certifications:</strong> <span id="bio-certifications"></span></li>
+                        <li><strong>Achievements:</strong> <span id="bio-achievements"></span></li>
+                    </ul>
+                </div>
+
+                <div class="bio-segment">
+                    <h2>Teaching Philosophy</h2>
+                    <p id="bio-philosophy">Philosophy text goes here.</p>
+                </div>
+
+                <div class="bio-segment">
+                    <h2>Contact Information</h2>
+                    <div class="contact-item">
+                        <span>✉️</span> <span id="bio-email">email@example.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>📞</span> <span id="bio-phone">+60 00-000 0000</span>
+                    </div>
+                </div>
+
+                <div class="back-btn-container" style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn-back link-to-trainers">← Back to Trainers</button>
+                    <button id="btn-book-this-trainer" class="btn-back" style="background-color: var(--accent-color-cyan); color: #000; border: none; font-weight: 700;">Book This Trainer</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <div class="footer-content">
+                <div class="footer-section address">
+                    <div class="logo">PARADIS ISLAND GYM </div>
+                    <div class="address-row">
+                        <span class="icon-placeholder">📍</span>
+                        <div class="address-text">
+                            <a href="https://www.google.com/maps/search/?api=1&query=Jalan+Pulau+Indah+Au10%2FA,+Puncak+Perdana,+40150+Shah+Alam,+Selangor" target="_blank" class="location-link">
+                                <p>Paradis Island Gym, 777 MadLane, Kampung Boy District</p>
+                                <p>40150 Shah Alam, Selangor</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-section footer-links">
+                    <h3>Quick Navigation</h3>
+                    <ul>
+                        <li><a href="#" class="link-to-about">Home</a></li>
+                        <li><a href="#" class="link-to-dashboard">My Dashboard</a></li>
+                        <li><a href="#" class="link-to-register">Book a Session</a></li>
+                        <li><a href="#" class="link-to-trainers">Our Trainers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section social-links">
+                    <h3>Follow Our Journey</h3>
+                    <ul>
+                        <li>
+                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 PARADIS ISLAND GYM.</p>
+                <p class="disclaimer">Disclaimer: This website is an educational project created for the IMS566 assignment by Muhammad Luthfil Afi Bin Roshafian</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 7. MODALS -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Log Out</h3>
+            <p>Are you sure you want to securely log out of your session?</p>
+            <div class="modal-actions">
+                <button id="cancelLogout" class="modal-btn cancel-btn">Cancel</button>
+                <button id="confirmLogout" class="modal-btn confirm-btn">Log Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="bookedSessionsModal" class="modal">
+        <div class="modal-content booked-modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="margin: 0; display: flex; align-items: center; gap: 10px;">
+                    <span class="icon" style="font-size: 1.5rem;">🎟️</span> Your Booked Sessions
+                </h3>
+                <button id="closeBookedModal" style="background: transparent; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;">×</button>
+            </div>
+            <div id="register-sessions-list" class="sessions-content" style="text-align: left;">
+                <p style="text-align:center;">No sessions booked yet. Choose a session above!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 8. JAVASCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            const loginSection = document.getElementById('login-section');
+            const dashboardSection = document.getElementById('dashboard-section');
+            const registerSection = document.getElementById('register-section');
+            const trainersSection = document.getElementById('trainers-section');
+            const aboutSection = document.getElementById('about-section');
+            const trainerBioSection = document.getElementById('trainer-bio-section');
+            
+            const loginForm = document.getElementById('loginForm');
+            const welcomeText = document.getElementById('welcomeText');
+            const usernameInput = document.getElementById('username'); 
+            const passwordInput = document.getElementById('password');
+
+            const logoutModal = document.getElementById('logoutModal');
+            const cancelLogoutBtn = document.getElementById('cancelLogout');
+            const confirmLogoutBtn = document.getElementById('confirmLogout');
+
+            const bookedSessionsModal = document.getElementById('bookedSessionsModal');
+            const openBookedModalBtn = document.getElementById('openBookedModalBtn');
+            const closeBookedModal = document.getElementById('closeBookedModal');
+
+            // --- SESSION STATE MANAGEMENT ---
+            let userBookedSessions = JSON.parse(localStorage.getItem('gym_userBookedSessions')) || [];
+            let totalAttended = parseInt(localStorage.getItem('gym_totalAttended')) || 0;
+            let chartsRendered = false; // MENCEGAH CHART DARI LUKIS BILA TERSEMBUNYI
+
+            const saveState = () => {
+                localStorage.setItem('gym_userBookedSessions', JSON.stringify(userBookedSessions));
+                localStorage.setItem('gym_totalAttended', totalAttended);
+            };
+
+            const updateSectionState = (sectionId) => {
+                if(sectionId !== 'login-section') {
+                    localStorage.setItem('gym_currentSection', sectionId);
+                }
+            };
+
+            // --- TRAINER DATA ---
+            const trainersData = [
+                {
+                    id: 1, name: "Chris Bumstead", role: "Heavy Lifting & Strength Coach", image: "https://www.rbsdirect.com.br/filestore/6/3/8/4/6/8/4_3a8b593c0e41b43/4864836_6a7061482e39a53.jpg?format=webp&h=270&w=406", 
+                    about: "Cbum is a powerhouse strength coach with 8 years of experience. His sessions are strictly focused on progressive overload, raw power generation, and proper nutrition tracking to optimize muscle recovery after intense gym sessions.",
+                    experience: "15+ years", specialization: "Powerlifting, High-Protein Nutrition Planning, Deadlift Mechanics", certifications: "Advanced Powerlifting Instructor, Sports Nutritionist", achievements: "Regional Powerlifting Champion, Mentored 500+ lifters", philosophy: "Chris believes that pushing past mental limits is just as important as lifting heavy. His structured and intense routines ensure that you are constantly breaking your own records.", email: "cbum@paradisislandgym.com", phone: "+60 12-345 6789"
+                },
+                {
+                    id: 2, name: "Joel Twinem TNF", role: "HIIT & Cardio Specialist", image: "https://yt3.googleusercontent.com/H54RaF8g2t8VERkuZlt2-duRIoJ1vRQp0mcq-TQJJSyW5Sq2dUD0DpfkgJ2pzt5-Y3oAsZUHGQ=s900-c-k-c0x00ffffff-no-rj",
+                    about: "TNF is an elite conditioning expert specializing in high-intensity interval training (HIIT) and cardiovascular endurance. His dynamic classes are designed to torch calories, improve agility, and build a lean, athletic physique.",
+                    experience: "12+ years", specialization: "HIIT, Agility Drills, Cardiovascular Endurance", certifications: "Certified Elite Conditioning Specialist", achievements: "Ex-Military Fitness Instructor, Creator of 'Titan Burn' Program", philosophy: "Joel's approach is rooted in discipline and non-stop movement. He pushes his clients to find their maximum heart rate and sustain their energy through the toughest intervals.", email: "Joel.TNF@paradisislandgym.com", phone: "+60 11-1123 697"
+                },
+                {
+                    id: 3, name: "David Laid", role: "Calisthenics Expert", image: "https://davidlaid.com/cdn/shop/files/david-laid-bio.jpg?v=1613512470",
+                    about: "David is a master of body control, specializing in advanced calisthenics and gymnastic ring workouts. With a strict eye for perfect form, his sessions help students master their own bodyweight.",
+                    experience: "13+ years", specialization: "Calisthenics, Core Stability, Gymnastic Rings", certifications: "Master Bodyweight Instructor", achievements: "National Calisthenics Judge, Perfected the human flag at age 16", philosophy: "David believes that you must master your own body before you can master any equipment. His no-nonsense teaching style develops extreme core strength and flawless technique.", email: "david.laid@paradisislandgym.com", phone: "+60 12-794 5783"
+                },
+                {
+                    id: 4, name: "Elijah Mundy", role: "Mobility & Yoga Guide", image: "https://trainheroic-uploads.s3.amazonaws.com/covers/1750693052_372405_orig.jpg",
+                    about: "Elijah is a dedicated mobility and recovery specialist. His sessions focus on joint health, deep stretching, and breathwork to ensure athletes remain injury-free and fully recovered.",
+                    experience: "10+ years", specialization: "Vinyasa Yoga, Injury Prevention, Active Recovery", certifications: "Registered Yoga Teacher (RYT 500)", achievements: "Rehabilitated over 200 athletes post-injury", philosophy: "Elijah's philosophy centers on the mind-muscle connection and the belief that flexibility is the key to longevity in fitness. His sessions are a peaceful break from heavy training.", email: "elijah_mundy@paradisislandgym.com", phone: "+60 17-045 9907"
+                },
+                {
+                    id: 5, name: "Jacob Oestreicher", role: "Sports Conditioning", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoLtTj_HM24RMslkoVDofm88lOqjljpoLBYg&s",
+                    about: "Jacob brings explosive energy to the gym. Specializing in functional sports conditioning, he designs workouts that improve reflexes, speed, and overall athletic performance.",
+                    experience: "7+ years", specialization: "Plyometrics, Speed Training, Functional Fitness", certifications: "Certified Functional Strength Coach (CFSC)", achievements: "Former Track & Field Competitor", philosophy: "Jacob believes that working out should be dynamic and fun. He integrates sports-like movements into his training so you feel like an athlete every time you hit the gym floor.", email: "Jacob0es@paradisislandgym.com", phone: "+60 19-339 5420"
+                }
+            ];
+
+            // Render Trainers Grid
+            const renderTrainers = () => {
+                const grid = document.getElementById('dynamic-trainers-grid');
+                grid.innerHTML = ''; 
+                trainersData.forEach(trainer => {
+                    const imageHtml = trainer.image && trainer.image !== "YOUR_IMAGE_LINK_HERE.jpg" && !trainer.image.includes("YOUR_IMAGE") 
+                        ? `<img src="${trainer.image}" alt="${trainer.name}">` 
+                        : `<span class="img-placeholder-text">Your Image Here</span>`;
+
+                    const card = document.createElement('div');
+                    card.className = 'trainer-card';
+                    card.innerHTML = `
+                        <div class="trainer-img-box">${imageHtml}</div>
+                        <div class="trainer-card-body">
+                            <h3>${trainer.name}</h3><p>${trainer.role}</p>
+                            <button class="btn-bio" data-id="${trainer.id}">Bio</button>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+
+                document.querySelectorAll('.btn-bio').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const trainerId = parseInt(e.target.getAttribute('data-id'));
+                        openTrainerBio(trainerId, false);
+                    });
+                });
+            };
+
+            const openTrainerBio = (id, isInitLoad = false) => {
+                const trainer = trainersData.find(t => t.id === id);
+                if (!trainer) return;
+                
+                document.getElementById('bio-name').textContent = trainer.name;
+                document.getElementById('bio-role').textContent = trainer.role;
+                document.getElementById('bio-about').textContent = trainer.about;
+                document.getElementById('bio-experience').textContent = trainer.experience;
+                document.getElementById('bio-specialization').textContent = trainer.specialization;
+                document.getElementById('bio-certifications').textContent = trainer.certifications;
+                document.getElementById('bio-achievements').textContent = trainer.achievements;
+                document.getElementById('bio-philosophy').textContent = trainer.philosophy;
+                document.getElementById('bio-email').textContent = trainer.email;
+                document.getElementById('bio-phone').textContent = trainer.phone;
+
+                const imgEl = document.getElementById('bio-img');
+                const placeholder = document.getElementById('bio-img-placeholder');
+                if(trainer.image && !trainer.image.includes("YOUR_IMAGE")) {
+                    imgEl.src = trainer.image; imgEl.style.display = "block"; placeholder.style.display = "none";
+                } else {
+                    imgEl.style.display = "none"; placeholder.style.display = "block";
+                }
+                
+                hideAllSections(); 
+                trainerBioSection.style.display = 'flex';
+
+                localStorage.setItem('gym_currentTrainerBioId', id);
+                if (!isInitLoad) updateSectionState('trainer-bio-section');
+            };
+
+            // --- Navigation Logic ---
+            const hideAllSections = () => {
+                loginSection.style.display = 'none'; dashboardSection.style.display = 'none';
+                registerSection.style.display = 'none'; trainersSection.style.display = 'none'; 
+                aboutSection.style.display = 'none'; trainerBioSection.style.display = 'none';
+            };
+
+            const setupLinks = (selector, sectionElement) => {
+                document.querySelectorAll(selector).forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault(); 
+                        hideAllSections(); 
+                        sectionElement.style.display = 'flex';
+                        updateSectionState(sectionElement.id);
+                        if(selector === '.link-to-trainers') renderTrainers();
+                        
+                        // FIX CHART: Hanya lukis chart jika Dashboard ditunjuk dengan penuh
+                        if (sectionElement.id === 'dashboard-section' && !chartsRendered) {
+                            setTimeout(() => {
+                                renderCharts();
+                                chartsRendered = true;
+                            }, 50);
+                        }
+
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                });
+            };
+            
+            setupLinks('.link-to-register', registerSection); 
+            setupLinks('.link-to-dashboard', dashboardSection); 
+            setupLinks('.link-to-trainers', trainersSection);
+            setupLinks('.link-to-about', aboutSection);
+
+            // --- Book a Session Logic ---
+            const renderBookedSessionsList = () => {
+                const registerList = document.getElementById('register-sessions-list');
+                if (!registerList) return;
+                registerList.innerHTML = ''; 
+
+                if(userBookedSessions.length === 0) {
+                    registerList.innerHTML = `<p style="text-align:center;">No sessions booked yet. Choose a session behind!</p>`;
+                } else {
+                    const grouped = userBookedSessions.reduce((acc, curr) => {
+                        if(!acc[curr.day]) acc[curr.day] = [];
+                        acc[curr.day].push(curr);
+                        return acc;
+                    }, {});
+
+                    for (const [day, sessions] of Object.entries(grouped)) {
+                        const dayHeader = document.createElement('h3');
+                        dayHeader.style.color = '#fff'; dayHeader.style.marginBottom = '1rem'; dayHeader.style.borderLeft = '3px solid #eab308'; dayHeader.style.paddingLeft = '10px';
+                        dayHeader.textContent = day;
+                        registerList.appendChild(dayHeader);
+
+                        sessions.forEach(session => {
+                            const card = document.createElement('div');
+                            card.className = 'dashboard-session-card';
+                            card.style.marginBottom = '1rem';
+                            
+                            const tagHtml = session.status === 'upcoming' 
+                                ? `<span class="tag-upcoming">UPCOMING</span>` 
+                                : `<span class="tag-attended">ATTENDED</span>`;
+
+                            card.innerHTML = `
+                                <div class="ds-info">
+                                    <h4>${session.title}</h4>
+                                    <p>${session.time} | ${session.trainer}</p>
+                                    ${tagHtml}
+                                </div>
+                                <div class="ds-actions">
+                                    <button class="action-btn btn-tick" data-id="${session.id}" title="Attend Session">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M20 6L9 17l-5-5"></path></svg>
+                                    </button>
+                                    <button class="action-btn btn-bin" data-id="${session.id}" title="Cancel Session">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    </button>
+                                </div>
+                            `;
+                            registerList.appendChild(card);
+                        });
+                    }
+                }
+
+                document.querySelectorAll('.btn-tick').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.currentTarget.getAttribute('data-id');
+                        const session = userBookedSessions.find(s => s.id === id);
+                        if(session && session.status !== 'completed') {
+                            session.status = 'completed';
+                            totalAttended++;
+                            saveState();
+                            updateDashboardStats();
+                            renderBookedSessionsList();
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.btn-bin').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.currentTarget.getAttribute('data-id');
+                        const sessionIndex = userBookedSessions.findIndex(s => s.id === id);
+                        if (sessionIndex > -1) {
+                            if(userBookedSessions[sessionIndex].status === 'completed') totalAttended--;
+                            userBookedSessions.splice(sessionIndex, 1);
+                            saveState();
+                            syncBookButtons();
+                            updateDashboardStats();
+                            renderBookedSessionsList();
+                        }
+                    });
+                });
+            };
+
+            const syncBookButtons = () => {
+                document.querySelectorAll('.btn-book').forEach(btn => {
+                    const id = btn.getAttribute('data-id');
+                    const isBooked = userBookedSessions.some(s => s.id === id);
+                    if (isBooked) {
+                        btn.textContent = 'Booked';
+                        btn.classList.add('booked');
+                        btn.disabled = true;
+                    } else {
+                        btn.textContent = 'Book';
+                        btn.classList.remove('booked');
+                        btn.disabled = false;
+                    }
+                });
+            };
+
+            document.querySelectorAll('.btn-book').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const button = e.currentTarget;
+                    if(button.classList.contains('booked')) return; 
+
+                    const id = button.getAttribute('data-id');
+                    const day = button.getAttribute('data-day');
+                    const title = button.getAttribute('data-title');
+                    const time = button.getAttribute('data-time');
+                    const trainer = button.getAttribute('data-trainer');
+
+                    button.textContent = 'Booked';
+                    button.classList.add('booked');
+                    button.disabled = true;
+
+                    userBookedSessions.push({ id, day, title, time, trainer, status: 'upcoming' });
+                    
+                    saveState();
+                    updateDashboardStats();
+                    renderBookedSessionsList();
+                    bookedSessionsModal.style.display = 'flex';
+                });
+            });
+
+            // --- State Initialization (On Page Reload) ---
+            const initPage = () => {
+                if (sessionStorage.getItem('gym_isLoggedIn') === 'true') {
+                    const savedName = localStorage.getItem('gym_userName') || 'User';
+                    welcomeText.textContent = `Hello, ${savedName}!`;
+                    
+                    const savedSection = localStorage.getItem('gym_currentSection') || 'about-section';
+                    
+                    hideAllSections();
+                    const activeEl = document.getElementById(savedSection);
+                    if(activeEl && savedSection !== 'login-section') {
+                        activeEl.style.display = 'flex';
+                        
+                        // FIX: Kalau user refresh waktu di Dashboard, render charts
+                        if (savedSection === 'dashboard-section' && !chartsRendered) {
+                            setTimeout(() => {
+                                renderCharts();
+                                chartsRendered = true;
+                            }, 50);
+                        }
+                    } else {
+                        document.getElementById('about-section').style.display = 'flex';
+                    }
+
+                    if (savedSection === 'trainer-bio-section') {
+                        const bioId = parseInt(localStorage.getItem('gym_currentTrainerBioId'));
+                        if(bioId) openTrainerBio(bioId, true);
+                    } else if (savedSection === 'trainers-section') {
+                        renderTrainers();
+                    }
+
+                    updateDashboardStats();
+                    renderBookedSessionsList();
+                    syncBookButtons();
+                } else {
+                    hideAllSections();
+                    loginSection.style.display = 'flex';
+
+                    updateDashboardStats();
+                    renderBookedSessionsList();
+                    syncBookButtons();
+                }
+            };
+
+            // --- Login Handling ---
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                
+                const userVal = usernameInput.value.trim();
+                const passVal = passwordInput.value.trim();
+
+                if (userVal === 'user' && passVal === 'handsomeL') {
+                    let nameToGreet = 'User';
+                    sessionStorage.setItem('gym_isLoggedIn', 'true');
+                    localStorage.setItem('gym_userName', nameToGreet);
+                    
+                    // PAKSA KE HOMEPAGE (ABOUT SECTION) SELEPAS LOGIN
+                    updateSectionState('about-section');
+                    welcomeText.textContent = `Hello, ${nameToGreet}!`;
+                    hideAllSections(); 
+                    document.getElementById('about-section').style.display = 'flex';
+
+                    updateDashboardStats(); 
+                    renderBookedSessionsList();
+                    // JANGAN renderCharts kat sini sebab dashboard tengah disembunyikan
+                } else {
+                    alert('Invalid Username or Password. Please try again.');
+                }
+            });
+
+            // --- Modals Handling ---
+            cancelLogoutBtn.addEventListener('click', function() { logoutModal.style.display = 'none'; });
+            confirmLogoutBtn.addEventListener('click', function() {
+                logoutModal.style.display = 'none'; 
+                sessionStorage.removeItem('gym_isLoggedIn'); 
+                hideAllSections(); 
+                loginSection.style.display = 'flex'; 
+                loginForm.reset(); 
+            });
+
+            openBookedModalBtn.addEventListener('click', function() { bookedSessionsModal.style.display = 'flex'; });
+            document.getElementById('booked-stats').addEventListener('click', function() { bookedSessionsModal.style.display = 'flex'; });
+            document.getElementById('attended-stats').addEventListener('click', function() { bookedSessionsModal.style.display = 'flex'; });
+            closeBookedModal.addEventListener('click', function() { bookedSessionsModal.style.display = 'none'; });
+
+            window.addEventListener('click', function(event) { 
+                if (event.target === logoutModal) logoutModal.style.display = 'none'; 
+                if (event.target === bookedSessionsModal) bookedSessionsModal.style.display = 'none';
+            });
+
+            // --- Dashboard Animations & Stats ---
+            const updateDashboardStats = () => {
+                const bookedElement = document.getElementById('booked-stats');
+                const attendedElement = document.getElementById('attended-stats');
+                const registerBadge = document.getElementById('register-booked-count');
+                
+                const currentBooked = userBookedSessions.filter(session => session.status !== 'completed').length; 
+
+                if (bookedElement && attendedElement) {
+                    bookedElement.innerHTML = currentBooked;
+                    attendedElement.innerHTML = totalAttended;
+                }
+                
+                if (registerBadge) {
+                    registerBadge.innerText = currentBooked; 
+                }
+            };
+
+            // --- Body Map Muscle Hover Logic ---
+            const muscleItems = document.querySelectorAll('.muscle-legend-item');
+            const muscleGroups = document.querySelectorAll('.muscle-group-path');
+
+            const resetMuscles = () => {
+                muscleGroups.forEach(g => {
+                    g.classList.remove('active');
+                    g.querySelectorAll('path').forEach(p => p.style.fill = 'rgba(255, 255, 255, 0.05)');
+                });
+                muscleItems.forEach(i => i.classList.remove('active'));
+            };
+
+            const activateMuscle = (id) => {
+                resetMuscles();
+                const targetEl = document.getElementById(id);
+                const legendItem = document.querySelector(`[data-target="${id}"]`);
+                
+                if (targetEl && legendItem) {
+                    targetEl.classList.add('active');
+                    legendItem.classList.add('active');
+                    const color = targetEl.getAttribute('data-color');
+                    targetEl.querySelectorAll('path').forEach(p => p.style.fill = color);
+                }
+            };
+
+            muscleItems.forEach(item => {
+                item.addEventListener('mouseenter', () => activateMuscle(item.getAttribute('data-target')));
+                item.addEventListener('mouseleave', resetMuscles);
+            });
+
+            muscleGroups.forEach(group => {
+                group.addEventListener('mouseenter', () => activateMuscle(group.id));
+                group.addEventListener('mouseleave', resetMuscles);
+            });
+
+            // --- ApexCharts Initialization ---
+            const renderCharts = () => {
+                
+                // 1. Calories Chart
+                const calOptions = {
+                    series: [{ name: 'Calories', data: [320, 450, 300, 500, 600, 400, 550] }],
+                    chart: { type: 'bar', height: 230, toolbar: { show: false }, fontFamily: 'inherit', background: 'transparent' },
+                    theme: { mode: 'dark' },
+                    colors: ['#ef4444'],
+                    plotOptions: { bar: { borderRadius: 4, columnWidth: '50%' } },
+                    dataLabels: { enabled: false },
+                    xaxis: { categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], axisBorder: { show: false }, axisTicks: { show: false }, labels: { style: { colors: '#abb1ba' } } },
+                    yaxis: { show: false },
+                    grid: { show: false },
+                    tooltip: { theme: 'dark' }
+                };
+                
+                const calContainer = document.querySelector("#caloriesChart");
+                if (calContainer) {
+                    calContainer.innerHTML = ''; 
+                    new ApexCharts(calContainer, calOptions).render();
+                }
+
+                // 2. Availability Heatmap
+                const heatmapOptions = {
+                    series: [
+                        { name: 'Chris B.', data: [1, 0, 1, 0, 1, 1, 0] },
+                        { name: 'Joel T.', data: [1, 0, 0, 1, 1, 1, 0] },
+                        { name: 'David L.', data: [0, 1, 1, 0, 1, 1, 0] },
+                        { name: 'Elijah M.', data: [1, 1, 0, 1, 0, 0, 1] },
+                        { name: 'Jacob O.', data: [0, 1, 1, 1, 0, 0, 1] }
+                    ],
+                    chart: { type: 'heatmap', height: 320, toolbar: { show: false }, fontFamily: 'inherit', background: 'transparent' },
+                    theme: { mode: 'dark' },
+                    xaxis: { 
+                        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], 
+                        labels: { style: { colors: '#abb1ba' } },
+                        axisBorder: { show: false }, axisTicks: { show: false } 
+                    },
+                    yaxis: { labels: { style: { colors: '#f9fafb', fontFamily: 'inherit' } } },
+                    dataLabels: { enabled: false },
+                    plotOptions: {
+                        heatmap: {
+                            shadeIntensity: 0.5,
+                            radius: 4, 
+                            useFillColorAsStroke: false,
+                            colorScale: {
+                                ranges: [
+                                    { from: 0, to: 0, color: 'rgba(255,255,255,0.02)', name: 'Off Duty' },
+                                    { from: 1, to: 1, color: '#06b6d4', name: 'Available' }
+                                ]
+                            }
+                        }
+                    }
+                };
+
+                const heatmapContainer = document.querySelector("#heatmapChart");
+                if (heatmapContainer) {
+                    heatmapContainer.innerHTML = ''; 
+                    new ApexCharts(heatmapContainer, heatmapOptions).render();
+                }
+
+                // 3. Peak Gym Traffic (Area Chart)
+                const peakOptions = {
+                    series: [{ name: 'Gym Traffic', data: [15, 45, 30, 65, 85, 55, 20] }],
+                    chart: { type: 'area', height: 320, toolbar: { show: false }, fontFamily: 'inherit', background: 'transparent' },
+                    theme: { mode: 'dark' },
+                    colors: ['#eab308'],
+                    fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.5, opacityTo: 0.05, stops: [0, 90, 100] } },
+                    dataLabels: { enabled: false },
+                    stroke: { curve: 'smooth', width: 3 },
+                    xaxis: { 
+                        categories: ['6AM', '9AM', '12PM', '3PM', '6PM', '9PM', '11PM'], 
+                        axisBorder: { show: false }, axisTicks: { show: false }, 
+                        labels: { style: { colors: '#abb1ba' } } 
+                    },
+                    yaxis: { show: false },
+                    grid: { borderColor: 'rgba(255,255,255,0.05)', strokeDashArray: 4 },
+                    tooltip: { theme: 'dark' }
+                };
+
+                const peakContainer = document.querySelector("#peakHoursChart");
+                if (peakContainer) {
+                    peakContainer.innerHTML = '';
+                    new ApexCharts(peakContainer, peakOptions).render();
+                }
+            };
+
+            // --- KOD TAMBAHAN: Filter Jadual Berdasarkan Trainer ---
+            const btnBookThisTrainer = document.getElementById('btn-book-this-trainer');
+
+            const filterSessionsByTrainer = (trainerName) => {
+                const daySections = document.querySelectorAll('.day-section');
+                
+                daySections.forEach(daySec => {
+                    let hasVisibleSession = false;
+                    const sessions = daySec.querySelectorAll('.schedule-card');
+                    
+                    sessions.forEach(session => {
+                        const btn = session.querySelector('.btn-book');
+                        if (!trainerName || btn.getAttribute('data-trainer') === trainerName) {
+                            session.style.display = 'flex';
+                            hasVisibleSession = true;
+                        } else {
+                            session.style.display = 'none';
+                        }
+                    });
+                    
+                    daySec.style.display = hasVisibleSession ? 'block' : 'none';
+                });
+            };
+
+            btnBookThisTrainer.addEventListener('click', () => {
+                const currentTrainerName = document.getElementById('bio-name').textContent;
+                filterSessionsByTrainer(currentTrainerName);
+                hideAllSections();
+                registerSection.style.display = 'flex';
+                updateSectionState('register-section');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            document.querySelectorAll('.link-to-register').forEach(link => {
+                link.addEventListener('click', () => {
+                    filterSessionsByTrainer(null);
+                });
+            });
+
+            // Run initialization on load
+            initPage();
+        });
+    </script>
+</body>
+</html>
