@@ -43,7 +43,6 @@
 
         /* --- SECTION BACKGROUNDS --- */
         #login-section {
-            /* Cinematic Fade Vignette Effect */
             background: 
                 radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 80%, rgba(0,0,0,0.95) 100%),
                 linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.7) 100%),
@@ -314,7 +313,6 @@
         .btn-bio { width: 100%; padding: 0.7rem; background-color: var(--bio-bg); color: #000; border: none; border-radius: 20px; font-weight: 700; cursor: pointer; transition: opacity 0.2s ease; font-size: 0.9rem; }
         .trainer-card:hover .btn-bio { background-color: #fff; } 
         
-        /* UPDATED: Bio Page Styling for Dark Theme */
         .bio-page-wrapper { background-color: transparent; color: var(--text-main); flex: 1; padding: 4rem 5% 6rem; }
         .bio-content { max-width: 800px; margin: 0 auto; background: var(--card-bg); padding: 3rem; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--border-color); }
         .bio-top { text-align: center; margin-bottom: 3rem; }
@@ -385,7 +383,7 @@
         .booked-modal-content::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); border-radius: 10px; }
         .booked-modal-content::-webkit-scrollbar-thumb { background: var(--accent-color-cyan); border-radius: 10px; }
 
-       /* Responsive Breakpoints */
+       /* --- RESPONSIVE BREAKPOINTS (MOBILE CENTERING) --- */
         @media (max-width: 1200px) {
             .day-section { width: calc(50% - 0.75rem); } 
             .muscle-legend { grid-template-columns: 1fr; }
@@ -397,7 +395,6 @@
             .nav-right { gap: 8px; } 
             .mobile-menu-btn { display: block; font-size: 1.5rem; padding: 0.2rem;}
             
-            /* KECILKAN BUTANG LOGOUT DI SINI */
             .logout-btn { 
                 padding: 0.25rem 0.6rem; 
                 font-size: 0.75rem; 
@@ -414,14 +411,47 @@
             .nav-items.active { display: flex; } 
             .nav-links { display: flex; flex-direction: column; width: 100%; gap: 1.5rem; margin-bottom: 0; text-align: center; }
 
+            /* --- CENTERING FIXES FOR MOBILE --- */
+            
+            /* Login Section */
             .login-layout { flex-direction: column; justify-content: center; text-align: center; gap: 2rem; }
-            .login-intro { text-align: center; }
+            .login-intro { text-align: center; display: flex; flex-direction: column; align-items: center; }
             .intro-logo { justify-content: center; font-size: 2.2rem; }
-            .login-intro h1 { font-size: 2.5rem; }
+            .login-intro h1 { font-size: 2.5rem; text-align: center; }
+            .login-intro p { text-align: center; margin: 0 auto; }
             .login-form-container { justify-content: center; width: 100%; }
+            
+            /* Center Form Inputs & Textboxes */
+            .form-group { text-align: center; }
+            .form-control { text-align: center; } /* Input teks dan placeholder akan berada tepat di tengah */
+            
+            /* Hero Sections */
+            .hero-section { text-align: center; }
+            .hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto; }
+
+            /* Dashboard Cards & Layout */
+            .card-title-row { justify-content: center; text-align: center; }
             .day-section { width: 100%; } 
+            .day-title { justify-content: center; }
+            
+            /* Schedule & Dashboard Session Cards */
+            .schedule-card { flex-direction: column; text-align: center; gap: 1rem; }
+            .schedule-info h4, .schedule-info p { text-align: center; }
+            
+            .dashboard-session-card { flex-direction: column; text-align: center; gap: 1rem; }
+            .ds-info { text-align: center; width: 100%; }
+            .ds-actions { justify-content: center; width: 100%; }
+            
+            /* Trainer Bio Pages */
+            .bio-segment h2, .bio-segment p, .bio-list { text-align: center; }
+            .bio-list li { text-align: center; }
+            .contact-item { justify-content: center; }
+
+            /* Grids Reset to 1 Column */
             .dashboard-grid, .charts-grid-bottom, .footer-content, .trainers-grid, .about-features { grid-template-columns: 1fr; }
             .main-login-logo { font-size: 2rem; }
+            
+            /* Footer Styling */
             .footer-section.address, .footer-section.footer-links, .footer-section.social-links { align-items: center; text-align: center; }
             .address-row { justify-content: center; }
             .footer-section.social-links ul { justify-content: center; }
