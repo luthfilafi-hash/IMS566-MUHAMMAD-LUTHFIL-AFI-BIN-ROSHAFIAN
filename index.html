@@ -341,9 +341,12 @@
         .footer-links ul, .social-links ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
         .footer-links a { color: var(--text-muted); font-size: 0.9rem; }
         .footer-links a:hover { color: var(--text-main); }
+        
+        /* FIXED: Social Icons Visibility & Hover Colors */
         .social-links ul { flex-direction: row; gap: 1.5rem; }
-        .social-icon-img { width: 22px; height: 22px; stroke: var(--text-muted); fill: none; transition: stroke 0.2s ease, transform 0.2s ease; vertical-align: middle; }
-        .social-links a:hover .social-icon-img { stroke: #fff; transform: translateY(-2px); }
+        .social-icon-img { width: 22px; height: 22px; fill: var(--text-muted); stroke: none; transition: fill 0.2s ease, transform 0.2s ease; vertical-align: middle; }
+        .social-links a:hover .social-icon-img { fill: #fff; transform: translateY(-2px); }
+        
         .icon-placeholder { font-size: 1rem; opacity: 0.8; vertical-align: middle; margin-top: 3px; }
         .footer-bottom { text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem; color: var(--text-muted); font-size: 0.8rem; opacity: 0.7; }
         .footer-bottom p { margin-bottom: 0.3rem; }
@@ -375,7 +378,6 @@
             .trainers-grid { grid-template-columns: repeat(3, 1fr); } 
         }
         @media (max-width: 768px) {
-            /* Menghalang skrin dari ter-scroll ke tepi / "Senget" */
             html, body { overflow-x: hidden; width: 100%; }
 
             .nav-right { gap: 8px; } 
@@ -398,8 +400,6 @@
             .nav-links { display: flex; flex-direction: column; width: 100%; gap: 1.5rem; margin-bottom: 0; text-align: center; }
 
             /* --- CENTERING FIXES FOR MOBILE --- */
-            
-            /* Login Section */
             .login-layout { flex-direction: column; justify-content: center; text-align: center; gap: 2rem; }
             .login-intro { text-align: center; display: flex; flex-direction: column; align-items: center; }
             .intro-logo { justify-content: center; font-size: 2.2rem; }
@@ -408,38 +408,30 @@
             .login-form-container { justify-content: center; width: 100%; padding: 0 1rem; }
             .login-wrapper { padding: 2rem; width: 100%; }
             
-            /* Center Form Inputs & Textboxes */
             .form-group { text-align: center; }
             .form-control { text-align: center; } 
             
-            /* Hero Sections */
             .hero-section { text-align: center; padding: 3rem 5% 1.5rem; }
             .hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto; width: 100%; }
 
-            /* Dashboard Cards & Layout (FIXING THE 'SENGET' ISSUE) */
             .dashboard-container { padding: 0 1rem; width: 100%; box-sizing: border-box; }
             .dashboard-grid, .charts-grid-bottom, .footer-content, .trainers-grid, .about-features { 
                 display: flex; flex-direction: column; gap: 1.2rem; width: 100%; 
             }
             .card { 
-                padding: 1.5rem 1rem; /* Smaller padding to fit mobile screens perfectly */
+                padding: 1.5rem 1rem;
                 width: 100%; 
                 margin: 0 auto; 
                 box-sizing: border-box; 
             }
             .card-title-row { justify-content: center; text-align: center; width: 100%; }
             
-            .stats-grid { 
-                display: flex; justify-content: center; gap: 1rem; width: 100%; 
-            }
-            .stat-item { 
-                flex: 1; padding: 1.2rem 0.5rem; 
-            }
+            .stats-grid { display: flex; justify-content: center; gap: 1rem; width: 100%; }
+            .stat-item { flex: 1; padding: 1.2rem 0.5rem; }
 
             .day-section { width: 100%; } 
             .day-title { justify-content: center; }
             
-            /* Schedule & Dashboard Session Cards */
             .schedule-card { flex-direction: column; text-align: center; gap: 1rem; padding: 1.2rem; }
             .schedule-info h4, .schedule-info p { text-align: center; }
             
@@ -447,7 +439,6 @@
             .ds-info { text-align: center; width: 100%; }
             .ds-actions { justify-content: center; width: 100%; }
             
-            /* Trainer Bio Pages */
             .bio-segment h2, .bio-segment p, .bio-list { text-align: center; }
             .bio-list li { text-align: center; }
             .contact-item { justify-content: center; }
@@ -455,7 +446,6 @@
 
             .main-login-logo { font-size: 2rem; }
             
-            /* Footer Styling */
             .footer-section.address, .footer-section.footer-links, .footer-section.social-links { align-items: center; text-align: center; width: 100%; }
             .address-row { justify-content: center; }
             .footer-section.social-links ul { justify-content: center; }
@@ -512,27 +502,9 @@
                 <div class="footer-section social-links">
                     <h3>Follow Our Journey</h3>
                     <ul>
-                        <li>
-                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;">
-                                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;">
-                                    <path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/>
-                                </svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;">
-                                    <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/>
-                                </svg>
-                            </a>
-                        </li>
+                        <li><a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a></li>
+                        <li><a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a></li>
+                        <li><a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a></li>
                     </ul>
                 </div>
             </div>
@@ -561,7 +533,7 @@
             </div>
         </nav>
         <header class="hero-section about-hero">
-            <div class="hero-content">
+            <div class="hero-content" style="display: flex; flex-direction: column; align-items: center;">
                 <h1>Welcome to Paradis Island Gym</h1>
                 <p>Forge your body, conquer your limits.</p>
                 <img src="https://images.unsplash.com/photo-1689877020200-403d8542d95d?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW1wdHklMjBneW18ZW58MHx8MHx8fDA%3D" alt="Paradis Island Gym Equipment" style="max-width: 550px; width: 100%; min-height: 300px; margin-top: 2.5rem; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); background-color: #333; object-fit: cover;">
@@ -626,21 +598,9 @@
                 <div class="footer-section social-links">
                     <h3>Follow Our Journey</h3>
                     <ul>
-                        <li>
-                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
-                            </a>
-                        </li>
+                        <li><a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a></li>
+                        <li><a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a></li>
+                        <li><a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a></li>
                     </ul>
                 </div>
             </div>
@@ -804,21 +764,9 @@
                 <div class="footer-section social-links">
                     <h3>Follow Our Journey</h3>
                     <ul>
-                        <li>
-                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
-                            </a>
-                        </li>
+                        <li><a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a></li>
+                        <li><a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a></li>
+                        <li><a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a></li>
                     </ul>
                 </div>
             </div>
@@ -1067,21 +1015,9 @@
                 <div class="footer-section social-links">
                     <h3>Follow Our Journey</h3>
                     <ul>
-                        <li>
-                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
-                            </a>
-                        </li>
+                        <li><a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a></li>
+                        <li><a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a></li>
+                        <li><a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a></li>
                     </ul>
                 </div>
             </div>
@@ -1144,21 +1080,9 @@
                 <div class="footer-section social-links">
                     <h3>Follow Our Journey</h3>
                     <ul>
-                        <li>
-                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
-                            </a>
-                        </li>
+                        <li><a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a></li>
+                        <li><a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a></li>
+                        <li><a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a></li>
                     </ul>
                 </div>
             </div>
@@ -1261,21 +1185,9 @@
                 <div class="footer-section social-links">
                     <h3>Follow Our Journey</h3>
                     <ul>
-                        <li>
-                            <a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank" onmouseover="this.querySelector('svg').style.fill='#fff'" onmouseout="this.querySelector('svg').style.fill='var(--text-muted)'">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon-img" style="fill: var(--text-muted); stroke: none;"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg>
-                            </a>
-                        </li>
+                        <li><a href="https://www.instagram.com/luthfyafii?igsh=MXgycmFmaDl2NW1hbA%3D%3D&utm_source=qr" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg></a></li>
+                        <li><a href="https://youtube.com/@luffyhh12?si=u4NWAt1mCy4oQRbU" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg></a></li>
+                        <li><a href="https://www.tiktok.com/@ginshunn?_r=1&_t=ZS-97AapdQr4Cn" target="_blank"><svg class="social-icon-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0l88 0a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a></li>
                     </ul>
                 </div>
             </div>
@@ -1702,7 +1614,7 @@
                 }
             };
 
-            // --- Body Map Muscle Hover/Click Logic ---
+            // --- Body Map Muscle Hover Logic ---
             const muscleItems = document.querySelectorAll('.muscle-legend-item');
             const muscleGroups = document.querySelectorAll('.muscle-group-path');
 
