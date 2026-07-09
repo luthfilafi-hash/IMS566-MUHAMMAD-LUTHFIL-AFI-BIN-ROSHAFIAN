@@ -11,7 +11,7 @@ Live Links
  GitHub Repository: https://github.com/luthfilafi-hash/IMS566-MUHAMMAD-LUTHFIL-AFI-BIN-ROSHAFIAN
 
 
-Key Project Files
+ Key Project Files
 
  index.html: Core source file containing application structure, styling definitions, and JavaScript functionality.
  image_1c1de5.png: Reference document detailing assignment criteria and deliverables.
@@ -26,13 +26,13 @@ The application uses a dark glassmorphism user interface, providing a central hu
 
 Authentication and Access Control
 
-Testing Credentials
+ Testing Credentials
 To test the authentication functionality, use the credentials embedded inside index.html:
 
  Username: user
  Password: handsomeL
 
-Authentication Process
+ Authentication Process
 
 1. Input Verification: Form inputs are validated against the stored credentials in index.html.
 2. Session Persistence: Upon verification, the application writes the login state to sessionStorage as gym_isLoggedIn. This maintains the session across page reloads.
@@ -41,7 +41,7 @@ Authentication Process
 5. Session Termination: Selecting Logout opens a modal confirmation window. Confirming clears sessionStorage and redirects back to the login screen.
 
 
-Core Features
+ Core Features
 
  1. Authentication and Session State
  Login system running client-side authentication logic.
@@ -68,19 +68,19 @@ Core Features
 
 Technologies and Libraries Used
 
-* HTML5: Page layout and structural markup in index.html.
-* CSS3: Custom properties, CSS Grid, Flexbox layouts, and backdrop filter styling.
-* Vanilla JavaScript (ES6+): Single-page navigation logic, DOM manipulation, state persistence, and event handling.
-* ApexCharts.js: External charting library imported via CDN in index.html for rendering dashboard charts.
-* Google Fonts: Integration of the Poppins font family.
+ HTML5: Page layout and structural markup in index.html.
+ CSS3: Custom properties, CSS Grid, Flexbox layouts, and backdrop filter styling.
+ Vanilla JavaScript (ES6+): Single-page navigation logic, DOM manipulation, state persistence, and event handling.
+ ApexCharts.js: External charting library imported via CDN in index.html for rendering dashboard charts.
+ Google Fonts: Integration of the Poppins font family.
 
 
 Quick Testing Guide
 
 1. Open the live website link in your web browser.
 2. Enter the demo credentials on the login page:
-   * Username: user
-   * Password: handsomeL
+    Username: user
+    Password: handsomeL
 3. Click LOG IN to access the system.
 4. Use the navigation bar to test dashboard widgets, book classes, and filter trainer schedules.
 
